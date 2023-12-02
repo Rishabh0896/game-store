@@ -1,15 +1,18 @@
 {% extends "dashboard/base.html" %}
+{% load static %}
 {% block content %}
-{% for post in posts %}
-    <article class="media content-section">
-        <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author }}</a>
-              <small class="text-muted">{{ post.date_posted }}</small>
+    <div class="row">
+        {% for gameItem in gameItems %}
+            <div class="col-lg-4">
+            <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+            <div class="box-element product">
+                <h6><strong>{{ gameItem.name }}</strong></h6>
+                <hr>
+                <button class="btn btn-outline-secondary add-btn">Add to cart</button>
+                <a class="btn btn-outline-success" href="#">View</a>
+                <h4 style="display: inline-block;float: right">{{ gameItem.price }}</h4>
             </div>
-            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
         </div>
-    </article>
-{% endfor %}
+        {% endfor %}
+    </div>
 {% endblock content%}

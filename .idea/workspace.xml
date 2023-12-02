@@ -2,24 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac91650-0448-4eec-9a9d-a225c198f4ef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crud/filter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crud/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crud/templates/crud/create_game_item.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crud/templates/crud/search_update_delete_game.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crud/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/static/images/arrow-down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/static/images/arrow-up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/static/images/cart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/static/images/placeholder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/cart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/checkout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/default.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/static/dashboard/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/static/dashboard/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/templates/dashboard/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/templates/dashboard/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gameStore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameStore/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gameStore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameStore/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/templates/users/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -34,11 +73,16 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\PycharmProjects\gameStore\media" />
+      <recent name="D:\Projects\PycharmProjects\gameStore\media\profile_pics" />
+      <recent name="D:\Projects\PycharmProjects\gameStore\dashboard\static\images" />
+      <recent name="D:\Projects\PycharmProjects\gameStore\UML" />
       <recent name="D:\Projects\PycharmProjects\gameStore\dashboard\static\dashboard" />
     </key>
   </component>
@@ -49,6 +93,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="gameStore.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -75,11 +120,28 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1700762411302</updated>
-      <workItem from="1700762416091" duration="5331000" />
+      <workItem from="1700762416091" duration="10849000" />
+      <workItem from="1700786667543" duration="6615000" />
+      <workItem from="1701050456696" duration="14671000" />
+      <workItem from="1701097306810" duration="6015000" />
+      <workItem from="1701293627096" duration="203000" />
+      <workItem from="1701474419094" duration="274000" />
+      <workItem from="1701544275385" duration="442000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

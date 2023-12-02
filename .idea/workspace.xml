@@ -2,35 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac91650-0448-4eec-9a9d-a225c198f4ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crud/filter.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crud/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crud/templates/crud/create_game_item.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crud/templates/crud/search_update_delete_game.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/crud/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dashboard/static/images/arrow-down.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dashboard/static/images/arrow-up.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dashboard/static/images/cart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dashboard/static/images/placeholder.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/cart.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/checkout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/default.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/static/dashboard/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/static/dashboard/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/templates/dashboard/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/templates/dashboard/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/templates/dashboard/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameStore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameStore/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameStore/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameStore/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/apps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/users/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +99,7 @@
       <workItem from="1701097306810" duration="6015000" />
       <workItem from="1701293627096" duration="203000" />
       <workItem from="1701474419094" duration="274000" />
-      <workItem from="1701544275385" duration="442000" />
+      <workItem from="1701544275385" duration="777000" />
     </task>
     <servers />
   </component>

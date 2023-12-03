@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ac91650-0448-4eec-9a9d-a225c198f4ef" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/dashboard/static/js/cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -12,6 +13,17 @@
       <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameStore/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameStore/settings.py" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/crud/templates/crud/manage_game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/crud/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/crud/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud/templates/crud/create_game_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/crud/templates/crud/add_game.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud/templates/crud/search_update_delete_game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/crud/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/crud/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
+>>>>>>> b5944c4dd0a9fb6cbfc9851e4284b04c52e660c8
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +70,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -108,7 +121,8 @@
       <workItem from="1701097306810" duration="6015000" />
       <workItem from="1701293627096" duration="203000" />
       <workItem from="1701474419094" duration="274000" />
-      <workItem from="1701544275385" duration="777000" />
+      <workItem from="1701544275385" duration="11448000" />
+      <workItem from="1701558170913" duration="5093000" />
     </task>
     <servers />
   </component>

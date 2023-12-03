@@ -21,15 +21,6 @@ class GameItemForm(forms.ModelForm):
             'min_time',
             'max_time',
             'is_cooperative',
-            'num_review',
-            'avg_rating',
-            'std_dev_rating',
-            'rated_complexity',
-            'rated_language_dependency',
-            Submit('submit', 'Add GameItem')
+            # Submit('submit', 'Save')
         )
         self.helper.form_method = 'POST'
-
-
-class GameSearchForm(forms.Form):
-    game_name = forms.CharField(label='Game Name', max_length=255, required=False)

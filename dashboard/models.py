@@ -10,13 +10,7 @@ from django.db import models
 #     def __str__(self):
 #         return self.name
 #
-#
-# class Product(models.Model):
-#     name = models.CharField(max_length=200, null=True)
-#     price = models.FloatField()
-#
-#     def __str__(self):
-#         return self.name
+
 #
 #
 # class Order(models.Model):
@@ -93,11 +87,51 @@ class GameItem(models.Model):
     std_dev_rating = models.FloatField()
     rated_complexity = models.FloatField(blank=True, null=True)
     rated_language_dependency = models.FloatField(blank=True, null=True)
+    price = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'gameitem'
 
+class StoreOrder(models.Model):
+    order_id = models.AutoField(primary_key=True)
+    order_status = models.CharField(max_length=11)
+    date_ordered = models.DateField(auto_now_add=True)
+    customer = models.ForeignKey(User, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'store_order'
+
+    @property
+    def get_cart_items(self):
+        items = self.orderitem_set.all()
+        total = sum([item.quantity for item in items])
+        return total
+
+    @property
+    def get_cart_total(self):
+        items = self.orderitem_set.all()
+        total = sum([item.get_total for item in items])
+        return total
+
+
+
+class OrderItem(models.Model):
+    order_item_id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(StoreOrder, models.DO_NOTHING)
+    game = models.ForeignKey(GameItem, models.DO_NOTHING)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'order_item'
+        unique_together = (('order', 'game'),)
+
+    @property
+    def get_total(self):
+        total = self.game.price * self.quantity
+        return total
 
 class GameItemDesigner(models.Model):
     game = models.OneToOneField(GameItem, models.DO_NOTHING,

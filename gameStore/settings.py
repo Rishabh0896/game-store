@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'game_store_db',
         'USER': 'root',
-        'PASSWORD': '08RISHABH@mysql',
+        'PASSWORD': 'Solution838!',
         'HOST': 'localhost',
         'PORT': '3306',
     }

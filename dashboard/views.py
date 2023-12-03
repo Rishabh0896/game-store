@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from .models import GameItem
+from .models import GameItem, StoreOrder, OrderItem
+from django.http import JsonResponse
+import json
 
 gameItemsTest = [
     {
@@ -58,6 +60,7 @@ def home(request):
     games_from_db = GameItem.objects.all().order_by('-published_year')[:10]
     game_items = [
         {
+            'game_id': game.game_id,
             'name': game.game_name,
             'price': f'$10',  # Assuming you want to display avg_rating as the price
             'published_year': game.published_year,
@@ -84,10 +87,41 @@ def about(request):
 
 
 def cart(request):
-    context = {}
+    if request.user:
+        customer = request.user
+        order, created = StoreOrder.objects.get_or_create(customer=customer, order_status='In progress')
+        items = order.orderitem_set.all()
+        print(items)
+    else:
+        items = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+    context = {'items': items, 'order': order}
     return render(request, 'dashboard/cart.html', context)
 
 
 def checkout(request):
     context = {}
     return render(request, 'dashboard/checkout.html', context)
+
+def update_item(request):
+    data = json.loads(request.body)
+    productId = data['productId']
+    customer = request.user
+    action = data['action']
+
+    product = GameItem.objects.get(game_id=productId)
+    order, created = StoreOrder.objects.get_or_create(customer=customer, order_status='In progress')
+
+    orderItem, created = OrderItem.objects.get_or_create(order=order, game=product)
+
+    if action == 'add':
+        orderItem.quantity = (orderItem.quantity + 1)
+    elif action == 'remove':
+        orderItem.quantity = (orderItem.quantity - 1)
+
+    orderItem.save()
+
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+
+    return JsonResponse("Item Updated", safe=False);

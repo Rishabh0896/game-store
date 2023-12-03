@@ -1,48 +1,70 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import GameItemForm, GameSearchForm
+from .forms import GameItemForm
 from django.contrib import messages
 from .models import GameItem
-from .filter import GameItemFilter
 
 
-# Create your views here.
-def create_game_item(request):
-    print("I'm here create_game_item")
-    print("Request Method:", request.method)
+def view_game(request, game_id):
+    context = {
+        'game_action': 'view',
+    }
+    game = get_object_or_404(GameItem, game_id=game_id)
+    form = GameItemForm(instance=game)
+    context['form'] = form
+    return render(request, 'crud/add_game.html', context)
+
+
+def add_game(request):
+    context = {
+        'game_action': 'add',
+    }
     if request.method == 'POST':
-        print("I'm here inside POST")
         form = GameItemForm(request.POST)
+        context['form'] = form
         if form.is_valid():
-            print("I'm here inside form valid")
             form.save()
             messages.success(request, f'Game Item has been created')
-            print("I'm here after save")
             return redirect('store-home')  # Redirect to a view that lists all GameItems
     else:
-        print("I'm in else")
         form = GameItemForm()
+        context['form'] = form
 
-    return render(request, 'crud/create_game_item.html', {'form': form})
+    return render(request, 'crud/add_game.html', context)
 
 
-def search_update_delete_game(request):
-    if request.method == 'POST':
-        search_form = GameSearchForm(request.POST)
-        game_item_filter = GameItemFilter()
-        if search_form.is_valid():
-            game_name = search_form.cleaned_data['game_name']
-            print("Game name is :" + game_name)
-            # Perform a search based on the entered game name
-            games = GameItem.objects.filter(game_name__icontains=game_name)
-            context = {
-                'search_form': search_form,
-                'games': games,
-                'filter': game_item_filter
-            }
-            return render(request, 'crud/search_update_delete_game.html', context)
+def manage_game(request):
+    if 'search' in request.GET:
+        search = request.GET['search']
+        games = GameItem.objects.filter(game_name__icontains=search)
     else:
-        search_form = GameSearchForm()
         games = GameItem.objects.all()
+    context = {'games': games}
+    return render(request, 'crud/manage_game.html', context)
 
-    return render(request, 'crud/search_update_delete_game.html', {'search_form': search_form, 'games': games})
+
+def update_game(request, game_id):
+    context = {
+        'game_action': 'update',
+    }
+    game = get_object_or_404(GameItem, game_id=game_id)
+
+    if request.method == 'POST':
+        form = GameItemForm(request.POST, instance=game)
+        context['form'] = form
+        if form.is_valid():
+            print(f"Published Year Input: {form.cleaned_data['published_year']}")
+            form.save()
+            messages.success(request, f'Game Item has been updated')
+            return redirect('manage_game')
+    else:
+        form = GameItemForm(instance=game)
+        context['form'] = form
+    return render(request, 'crud/add_game.html', context)
+
+
+def delete_game(request, game_id):
+    game = get_object_or_404(GameItem, game_id=game_id)
+    game.delete()
+    # Redirect to the search page or any other appropriate page
+    return redirect('manage_game')
 

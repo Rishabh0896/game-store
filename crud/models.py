@@ -22,7 +22,8 @@ class GameItem(models.Model):
         db_table = 'gameitem'
 
     def save(self, *args, **kwargs):
-        max_game_id = GameItem.objects.aggregate(models.Max('game_id'))['game_id__max']
-        self.game_id = max_game_id + 1 if max_game_id else 1
+        if self.pk is None:
+            max_game_id = GameItem.objects.aggregate(models.Max('game_id'))['game_id__max']
+            self.game_id = max_game_id + 1 if max_game_id else 1
         super(GameItem, self).save(*args, **kwargs)
 

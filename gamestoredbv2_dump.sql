@@ -57,7 +57,7 @@ CREATE TABLE `auth_group` (
   `name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +66,7 @@ CREATE TABLE `auth_group` (
 
 LOCK TABLES `auth_group` WRITE;
 /*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+INSERT INTO `auth_group` VALUES (1,'customer_group'),(3,'manager_group'),(2,'staff_group');
 /*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +86,7 @@ CREATE TABLE `auth_group_permissions` (
   KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +95,7 @@ CREATE TABLE `auth_group_permissions` (
 
 LOCK TABLES `auth_group_permissions` WRITE;
 /*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+INSERT INTO `auth_group_permissions` VALUES (2,1,61),(3,1,62),(4,1,63),(1,1,64);
 /*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +157,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$600000$AdgjEL68ZHDA12IlXpv1xR$PiNQHxwn/25fNc3QqncAnWS3Sbye8sGT9/ouhzqFqKk=','2023-12-01 23:51:08.384117',1,'admin','','','admin@admin.com',1,1,'2023-11-19 15:33:16.148965'),(2,'pbkdf2_sha256$600000$hqP1GbhtVFKw6BVnoBcljK$P9GkEiAs4Om75OfIuKAoxeZj7ANE7WDj6ENcqSt62I0=','2023-11-27 06:40:27.683894',0,'testRishabh','','','gg@gmail.com',0,1,'2023-11-22 18:13:10.793757'),(3,'pbkdf2_sha256$600000$JcjDuhfwgJZATMDB2VIxzf$MZ+lndDIuQNf7pQydrFu547nFgzfnKXHHrz2xfE/PTo=','2023-11-27 02:13:48.653373',0,'testStaff','','','testStaff@gmail.com',0,1,'2023-11-27 02:13:36.986490'),(4,'pbkdf2_sha256$600000$a550Z1MOYakuzjL7Xcyc6R$V2ky0dflUpk4AUp89b67TCTusvGA95A9GTPVSHiwK74=','2023-11-27 06:50:05.648124',0,'newUser4','','','emailnew@email.com',0,1,'2023-11-27 06:49:51.816143'),(5,'pbkdf2_sha256$600000$UDIsfqIVG1VQiyhYr6Y747$nkE4uM+Qd+YIXXnxlF2P9yBi5QOdwxeETOG+xoCmX4E=','2023-12-06 04:46:47.157272',0,'trang','','','trangkch1997@gmail.com',0,1,'2023-12-06 04:46:39.181213');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$600000$AdgjEL68ZHDA12IlXpv1xR$PiNQHxwn/25fNc3QqncAnWS3Sbye8sGT9/ouhzqFqKk=','2023-12-06 17:52:26.326524',1,'admin','','','admin@admin.com',1,1,'2023-11-19 15:33:16.148965'),(3,'pbkdf2_sha256$600000$JcjDuhfwgJZATMDB2VIxzf$MZ+lndDIuQNf7pQydrFu547nFgzfnKXHHrz2xfE/PTo=','2023-11-27 02:13:48.653373',0,'testStaff','','','testStaff@gmail.com',0,1,'2023-11-27 02:13:36.986490'),(5,'pbkdf2_sha256$600000$HkTsrr9ewlK7X43qY5ekhQ$OCtX7kIQBLJdnq4VQTnScslfygq7+8V4BSQP7U4D89c=','2023-12-06 16:30:53.374220',0,'testCustomer','','','customer@gmail.com',0,1,'2023-12-06 16:17:20.914785');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +177,7 @@ CREATE TABLE `auth_user_groups` (
   KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`),
   CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,6 +186,7 @@ CREATE TABLE `auth_user_groups` (
 
 LOCK TABLES `auth_user_groups` WRITE;
 /*!40000 ALTER TABLE `auth_user_groups` DISABLE KEYS */;
+INSERT INTO `auth_user_groups` VALUES (2,5,1);
 /*!40000 ALTER TABLE `auth_user_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +295,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +304,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2023-11-27 06:20:30.246706','1','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(2,'2023-11-27 06:20:53.217300','2','testStaff Profile',1,'[{\"added\": {}}]',16,1),(3,'2023-11-27 06:30:08.666549','2','testStaff Profile',3,'',16,1),(4,'2023-11-27 06:30:08.668543','1','testRishabh Profile',3,'',16,1),(5,'2023-11-27 06:30:16.181076','3','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(6,'2023-11-27 06:30:25.242568','4','testStaff Profile',1,'[{\"added\": {}}]',16,1),(7,'2023-11-27 07:09:54.726649','6','admin Profile',1,'[{\"added\": {}}]',16,1);
+INSERT INTO `django_admin_log` VALUES (1,'2023-11-27 06:20:30.246706','1','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(2,'2023-11-27 06:20:53.217300','2','testStaff Profile',1,'[{\"added\": {}}]',16,1),(3,'2023-11-27 06:30:08.666549','2','testStaff Profile',3,'',16,1),(4,'2023-11-27 06:30:08.668543','1','testRishabh Profile',3,'',16,1),(5,'2023-11-27 06:30:16.181076','3','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(6,'2023-11-27 06:30:25.242568','4','testStaff Profile',1,'[{\"added\": {}}]',16,1),(7,'2023-11-27 07:09:54.726649','6','admin Profile',1,'[{\"added\": {}}]',16,1),(8,'2023-12-06 15:42:35.508044','1','customer_group',1,'[{\"added\": {}}]',3,1),(9,'2023-12-06 15:43:02.770693','1','customer_group',2,'[{\"changed\": {\"fields\": [\"Permissions\"]}}]',3,1),(10,'2023-12-06 15:54:58.099568','2','testRishabh',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(11,'2023-12-06 16:10:50.253463','2','staff_group',1,'[{\"added\": {}}]',3,1),(12,'2023-12-06 16:10:58.468512','3','manager_group',1,'[{\"added\": {}}]',3,1),(13,'2023-12-06 16:15:38.391727','4','newUser4',3,'',4,1),(14,'2023-12-06 16:15:38.409506','2','testRishabh',3,'',4,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,7 +347,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -353,7 +356,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2023-11-19 15:32:08.225985'),(2,'auth','0001_initial','2023-11-19 15:32:08.507959'),(3,'admin','0001_initial','2023-11-19 15:32:08.586520'),(4,'admin','0002_logentry_remove_auto_add','2023-11-19 15:32:08.602117'),(5,'admin','0003_logentry_add_action_flag_choices','2023-11-19 15:32:08.602117'),(6,'contenttypes','0002_remove_content_type_name','2023-11-19 15:32:08.665070'),(7,'auth','0002_alter_permission_name_max_length','2023-11-19 15:32:08.696330'),(8,'auth','0003_alter_user_email_max_length','2023-11-19 15:32:08.721965'),(9,'auth','0004_alter_user_username_opts','2023-11-19 15:32:08.727997'),(10,'auth','0005_alter_user_last_login_null','2023-11-19 15:32:08.759274'),(11,'auth','0006_require_contenttypes_0002','2023-11-19 15:32:08.759274'),(12,'auth','0007_alter_validators_add_error_messages','2023-11-19 15:32:08.774944'),(13,'auth','0008_alter_user_username_max_length','2023-11-19 15:32:08.822236'),(14,'auth','0009_alter_user_last_name_max_length','2023-11-19 15:32:08.884616'),(15,'auth','0010_alter_group_name_max_length','2023-11-19 15:32:08.900265'),(16,'auth','0011_update_proxy_permissions','2023-11-19 15:32:08.915890'),(17,'auth','0012_alter_user_first_name_max_length','2023-11-19 15:32:08.947640'),(18,'sessions','0001_initial','2023-11-19 15:32:08.963248'),(19,'dashboard','0001_initial','2023-11-24 03:12:38.064168'),(20,'users','0001_initial','2023-11-27 06:17:45.453134');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2023-11-19 15:32:08.225985'),(2,'auth','0001_initial','2023-11-19 15:32:08.507959'),(3,'admin','0001_initial','2023-11-19 15:32:08.586520'),(4,'admin','0002_logentry_remove_auto_add','2023-11-19 15:32:08.602117'),(5,'admin','0003_logentry_add_action_flag_choices','2023-11-19 15:32:08.602117'),(6,'contenttypes','0002_remove_content_type_name','2023-11-19 15:32:08.665070'),(7,'auth','0002_alter_permission_name_max_length','2023-11-19 15:32:08.696330'),(8,'auth','0003_alter_user_email_max_length','2023-11-19 15:32:08.721965'),(9,'auth','0004_alter_user_username_opts','2023-11-19 15:32:08.727997'),(10,'auth','0005_alter_user_last_login_null','2023-11-19 15:32:08.759274'),(11,'auth','0006_require_contenttypes_0002','2023-11-19 15:32:08.759274'),(12,'auth','0007_alter_validators_add_error_messages','2023-11-19 15:32:08.774944'),(13,'auth','0008_alter_user_username_max_length','2023-11-19 15:32:08.822236'),(14,'auth','0009_alter_user_last_name_max_length','2023-11-19 15:32:08.884616'),(15,'auth','0010_alter_group_name_max_length','2023-11-19 15:32:08.900265'),(16,'auth','0011_update_proxy_permissions','2023-11-19 15:32:08.915890'),(17,'auth','0012_alter_user_first_name_max_length','2023-11-19 15:32:08.947640'),(18,'sessions','0001_initial','2023-11-19 15:32:08.963248'),(19,'dashboard','0001_initial','2023-11-24 03:12:38.064168'),(20,'users','0001_initial','2023-11-27 06:17:45.453134'),(21,'crud','0001_initial','2023-12-06 16:02:18.498484'),(22,'crud','0002_alter_gameitem_game_id','2023-12-06 16:02:18.507819'),(23,'crud','0003_designer_gamemechanic_gametype_publisher_and_more','2023-12-06 16:02:18.512250'),(24,'dashboard','0002_address_creditcard_orderitem_storeorder_and_more','2023-12-06 16:02:18.517238');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,7 +382,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0nn86d4m4yia5tldtz1d7dnjbc80y9lh','e30:1r7VhW:jsS2mzihSfsZlpporaxwfDEOrsCAEgUBUCrAQH0RiaA','2023-12-11 07:06:38.280006'),('82npqo65zyd3ourpo610vpl2u52kueab','e30:1r7Vhm:_cz1mdmFU0OU0XROvP3pdVDfTZ4sMnHBfi46GfirQ1o','2023-12-11 07:06:54.157957'),('af77a0vk415imhn1e8o3sn4fjhmqhkhb','e30:1r7VjD:U5ZjoMYC07MloUb7iV4XUD8Js1x2eesTSuel_ysDd_A','2023-12-11 07:08:23.500905'),('b4uhalwa5u2069rghmh90cbw9rg956ut','.eJxVjDsOwyAQBe9CHSHA5pcyvc-AlmUJTiKQjF1FuXuE5CJp38y8Nwtw7CUcnbawJnZlml1-twj4pDpAekC9N46t7tsa-VD4STtfWqLX7XT_Dgr0MmoPWoGaXZ68Mg6s0YRJoyQx-WiylCDcTFZmRCu0SejJKfCYxeSijezzBeKeOBA:1rAjo7:V1hX16g0RfsVT-vgvvw_pu0uldo-44SJjqzD9xG-Ko0','2023-12-20 04:46:47.161681'),('w2srd1by20pv6sdua9nvyv8mfog1qp5h','e30:1r6Mfq:JrNSsys72UR8hwZ6kui6u9pqhnGtJp8oF1OpjnxTBPw','2023-12-08 03:16:10.194913');
+INSERT INTO `django_session` VALUES ('0nn86d4m4yia5tldtz1d7dnjbc80y9lh','e30:1r7VhW:jsS2mzihSfsZlpporaxwfDEOrsCAEgUBUCrAQH0RiaA','2023-12-11 07:06:38.280006'),('3a8x2htuu291udo046kkjb6npabj1pq2','.eJxVjEEOwiAQRe_C2hBggIJL956BMMwoVUOT0q6Md7dNutDtf-_9t0h5XWpaO89pJHEWTpx-N8zlyW0H9MjtPskytWUeUe6KPGiX14n4dTncv4Oae93qoK0H67cAQ9RDUIaLdUyo443YgEUwyJ5ccTFCVEMpMSj0QQGCpyw-X9o_N64:1rAunV:NE9KhWCXTWBVRGDp6bbvatsi_Gw1bpSVggTi_IQgNBw','2023-12-20 16:30:53.379964'),('7xqmewi7paq08853pbiyqja8l5ur6d6z','.eJxVjMsOwiAQRf-FtSE8BVy69xsIwwxSNZCUdmX8d9ukC92ec-59s5jWpcZ10BwnZBcm2emXQcpParvAR2r3znNvyzwB3xN-2MFvHel1Pdq_g5pG3dY5OxIAGoUBR856b6S1gpxWYHMoRQR_Ds7ixqQqBoTJChCMJvSeHPt8AeGhN90:1rAw4Q:rgN8yaJ0hc8Y8muny5QX8mL2OZivze7YaEErmryEKYA','2023-12-20 17:52:26.345519'),('82npqo65zyd3ourpo610vpl2u52kueab','e30:1r7Vhm:_cz1mdmFU0OU0XROvP3pdVDfTZ4sMnHBfi46GfirQ1o','2023-12-11 07:06:54.157957'),('af77a0vk415imhn1e8o3sn4fjhmqhkhb','e30:1r7VjD:U5ZjoMYC07MloUb7iV4XUD8Js1x2eesTSuel_ysDd_A','2023-12-11 07:08:23.500905'),('w2srd1by20pv6sdua9nvyv8mfog1qp5h','e30:1r6Mfq:JrNSsys72UR8hwZ6kui6u9pqhnGtJp8oF1OpjnxTBPw','2023-12-08 03:16:10.194913');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -700,4 +703,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-06 11:57:11
+-- Dump completed on 2023-12-06 12:54:51

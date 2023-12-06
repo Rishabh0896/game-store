@@ -71,6 +71,10 @@ def get_addresses(customer):
     addresses = Address.objects.filter(customer=customer)
     return addresses
 
+def get_reviews_by_customer(customer):
+    reviews = Review.objects.filter(customer=customer)
+    return reviews
+
 def checkout(request):
     if request.user:
         customer = request.user
@@ -181,5 +185,4 @@ def add_review(request):
         language_dependency_rating = request.POST['language_dependency_rating']
 
         execute_insert_review_and_update_score(customer.id, game.game_id, rating, text_review, complexity_rating, language_dependency_rating)
-
         return redirect("store-home")

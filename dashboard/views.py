@@ -1,58 +1,11 @@
-from django.shortcuts import render
-from .models import GameItem, StoreOrder, OrderItem
+from django.shortcuts import render, redirect
+from .models import GameItem, StoreOrder, OrderItem, CreditCard
 from django.http import JsonResponse
 import json
+from django.contrib.auth.models import User
+from django.core.serializers import serialize
+from .forms import CreditCardForm
 
-gameItemsTest = [
-    {
-        'name': 'Bitoku',
-        'price': '$11',
-        'published_year': '2021',
-        'min_player': '1',
-        'max_player': '4',
-        'min_age': '12',
-        'min_time': '120',
-        'max_time': '120',
-        'is_cooperative': '0',
-        'num_review': '4133',
-        'avg_rating': '7.91579',
-        'std_dev_rating': '1.36109',
-        'rated_complexity': '3.7192',
-        'rated_language_dependency': None
-    },
-    {
-        'name': 'Blood Rage',
-        'price': '$20',
-        'published_year': '2021',
-        'min_player': '1',
-        'max_player': '4',
-        'min_age': '12',
-        'min_time': '120',
-        'max_time': '120',
-        'is_cooperative': '0',
-        'num_review': '4133',
-        'avg_rating': '7.91579',
-        'std_dev_rating': '1.36109',
-        'rated_complexity': '3.7192',
-        'rated_language_dependency': None
-    },
-    {
-        'name': 'Bora Bora',
-        'price': '$29',
-        'published_year': '2021',
-        'min_player': '1',
-        'max_player': '4',
-        'min_age': '12',
-        'min_time': '120',
-        'max_time': '120',
-        'is_cooperative': '0',
-        'num_review': '4133',
-        'avg_rating': '7.91579',
-        'std_dev_rating': '1.36109',
-        'rated_complexity': '3.7192',
-        'rated_language_dependency': None
-    }
-]
 
 
 # Create your views here.
@@ -91,7 +44,6 @@ def cart(request):
         customer = request.user
         order, created = StoreOrder.objects.get_or_create(customer=customer, order_status='In progress')
         items = order.orderitem_set.all()
-        print(items)
     else:
         items = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
@@ -100,13 +52,26 @@ def cart(request):
 
 
 def checkout(request):
-    context = {}
+    if request.user:
+        customer = request.user
+        order = StoreOrder.objects.get(customer=customer, order_status='In progress')
+        items = order.orderitem_set.all()
+        cards = CreditCard.objects.filter(customer=customer)
+    else:
+        items = []
+        cards = []
+        order = {'get_cart_total': 0, 'get_cart_items': 0}
+    context = {'items': items, 'order': order, 'cards': cards}
     return render(request, 'dashboard/checkout.html', context)
 
-def update_item(request):
+def update_cart_item(request):
     data = json.loads(request.body)
     productId = data['productId']
     customer = request.user
+
+    if customer == "AnonymousUser":
+        return JsonResponse("Please login to add to cart", safe=False);
+
     action = data['action']
 
     product = GameItem.objects.get(game_id=productId)
@@ -125,3 +90,22 @@ def update_item(request):
         orderItem.delete()
 
     return JsonResponse("Item Updated", safe=False);
+
+
+
+def add_credit_card(request):
+
+    if request.method == 'POST':
+        form = CreditCardForm(request.POST)
+        if form.is_valid():
+            credit_card = form.save(commit=False)
+            credit_card.customer = request.user
+            credit_card.save()
+            referring_page = request.META.get('HTTP_REFERER', '/')
+            return redirect(referring_page)
+    else:
+        form = CreditCardForm()
+    
+    context = {'customer_id':request.user.id, 'form': form}
+    return render(request, 'dashboard/add_credit_card.html', context)
+

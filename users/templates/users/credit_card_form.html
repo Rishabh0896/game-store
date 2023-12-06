@@ -1,0 +1,14 @@
+{% extends "dashboard/base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h2>Add Credit Card</h2>
+
+  <form method="post" action="{% url 'add_credit_card' %}">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Add Credit Card</button>
+  </form>
+{% endblock content %}

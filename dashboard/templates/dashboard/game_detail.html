@@ -1,0 +1,152 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="center">{{game.game_name}}</h2>
+    <div class="container mt-5 d-flex flex-row gap-3">
+        <div class="d-flex flex-column gap-1">
+            <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+            <button data-product="{{game.game_id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
+            <a class="btn btn-outline-success" href="{% url 'add_review' %}?game_id={{game.game_id}}">Review</a>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                {% if game.published_year %}
+                    <tr>
+                        <th>Published Year</th>
+                        <td>{{ game.published_year }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.min_players %}
+                    <tr>
+                        <th>Min Players</th>
+                        <td>{{ game.min_players }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.max_players %}
+                    <tr>
+                        <th>Max Players</th>
+                        <td>{{ game.max_players }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.min_age %}
+                    <tr>
+                        <th>Min Age</th>
+                        <td>{{ game.min_age }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.min_time %}
+                    <tr>
+                        <th>Min Time</th>
+                        <td>{{ game.min_time }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.max_time %}
+                    <tr>
+                        <th>Max Time</th>
+                        <td>{{ game.max_time }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.is_cooperative %}
+                    <tr>
+                        <th>Cooperative</th>
+                        <td>
+                            {% if game.is_cooperative %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}</td>
+                    </tr>
+                {% endif %}
+
+                {% if game.designer.designer_name %}
+                    <tr>
+                        <th>Designer</th>
+                        <td>{{ game.designer.designer_name }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.publisher.publisher_name %}
+                    <tr>
+                        <th>Publisher</th>
+                        <td>{{ game.publisher.publisher_name }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.mechanic.mechanic_name %}
+                    <tr>
+                        <th>Mechanic</th>
+                        <td>{{ game.mechanic.mechanic_name }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.type.type_name %}
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ game.type.type_name }}</td>
+                    </tr>
+                {% endif %}
+                {% if game.price %}
+                    <tr>
+                        <th>Price</th>
+                        <td>${{ game.price }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <div class="container mt-5">
+        <h2>Reviews ({{game.num_review}})</h2>
+        
+        <div class="m-3">
+            <div class="row">
+                <div class="col-sm-3"><strong>Average Rating</strong></div>
+                <div class="col-sm-3"><strong>Standard Deviation</strong></div>
+                <div class="col-sm-3"><strong>Complexity</strong></div>
+                <div class="col-sm-3"><strong>Language Dependency</strong></div>
+            </div>
+        
+            <!-- Value Row -->
+            <div class="row">
+                {% if game.avg_rating %}
+                    <div class="col-sm-3">{{ game.avg_rating }}</div>
+                {% endif %}
+                {% if game.std_dev_rating %}
+                    <div class="col-sm-3">{{ game.std_dev_rating }}</div>
+                {% endif %}
+                {% if game.rated_complexity %}
+                    <div class="col-sm-3">{{ game.rated_complexity }}</div>
+                {% endif %}
+                {% if game.rated_language_dependency %}
+                    <div class="col-sm-3">{{ game.rated_language_dependency }}</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        
+
+        <table class="table table-bordered mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Reviewer</th>
+                    <th>Rating</th>
+                    <th>Complexity</th>
+                    <th>Language Dependency</th>
+                    <th>Additional Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.customer }}</td>
+                        <td>{{ review.rating }}</td>
+                        <td>{{ review.complexity_rating }}</td>
+                        <td>{{ review.language_dependency_rating }}</td>
+                        <td>{% if review.text_review %}{{ review.text_review }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock content%}

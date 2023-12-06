@@ -2,6 +2,7 @@ from datetime import timezone
 import datetime
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Address(models.Model):
     address_id = models.AutoField(primary_key=True)
@@ -145,14 +146,15 @@ class OrderItem(models.Model):
         total = self.game.price * self.quantity
         return total
 
+
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(User, models.DO_NOTHING)
     game = models.ForeignKey(GameItem, models.DO_NOTHING)
-    rating = models.IntegerField()
+    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
     text_review = models.TextField(blank=True, null=True)
-    complexity_rating = models.IntegerField()
-    language_dependency_rating = models.IntegerField()
+    complexity_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
+    language_dependency_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
 
     class Meta:
         managed = False

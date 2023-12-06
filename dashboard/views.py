@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from .models import Address, GameItem, StoreOrder, OrderItem, CreditCard
 from django.http import JsonResponse
@@ -15,7 +16,7 @@ def home(request):
         {
             'game_id': game.game_id,
             'name': game.game_name,
-            'price': f'$10',  # Assuming you want to display avg_rating as the price
+            'price': game.price,
             'published_year': game.published_year,
             'min_player': game.min_player,
             'max_player': game.max_player,
@@ -103,7 +104,7 @@ def add_credit_card(request):
             credit_card.customer = request.user
             credit_card.save()
             referring_page = request.META.get('HTTP_REFERER', '/')
-            return redirect(referring_page)
+            return redirect("checkout")
     else:
         form = CreditCardForm()
     
@@ -117,10 +118,21 @@ def add_address(request):
             address = form.save(commit=False)
             address.customer = request.user
             address.save()
-            referring_page = request.META.get('HTTP_REFERER', '/')
-            return redirect(referring_page)
+            return redirect("checkout")
     else:
         form = AddressForm()
     
     context = {'customer_id': request.user.id, 'form': form}
     return render(request, 'dashboard/add_address.html', context)
+
+def place_order(request):
+    if request.method == 'POST':
+        customer = request.user
+        order = StoreOrder.objects.get(customer=customer, order_status='In progress')
+        order.address = Address.objects.get(address_id=request.POST['selected_address'])
+        order.credit_card = CreditCard.objects.get(credit_card_id=request.POST['selected_credit_card'])
+        order.order_status = 'Placed'
+        order.date_ordered = datetime.datetime.now()
+        order.save()
+        referring_page = request.META.get('HTTP_REFERER', '/')
+        return redirect("store-home")

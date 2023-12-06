@@ -10,7 +10,7 @@
                 <hr>
                 <button data-product="{{gameItem.game_id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
                 <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block;float: right">{{ gameItem.price }}</h4>
+                <h4 style="display: inline-block;float: right">${{ gameItem.price }}</h4>
             </div>
         </div>
         {% endfor %}

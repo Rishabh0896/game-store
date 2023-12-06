@@ -4,20 +4,20 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
-				<form id="form">
+				<form id="form" method="post" action="{% url 'place_order' %}">
+					{% csrf_token %} {# Add CSRF token for security #}
 
 					<div id="payment-method">
 						<label for="credit-card-select">Choose Credit Card: </label>
 						<select id="credit-card-select" name="selected_credit_card">
 							{% for card in cards %}
-								<option value="{{ card.id }}">Card {{ card.get_hidden_number }}</option>
+								<option value="{{ card.credit_card_id }}">Card {{ card.get_hidden_number }}</option>
 							{% endfor %}
 						</select>
 						<br>
 						<a href="{% url 'add_credit_card' %}">
 							Add Credit Card
 						</a>
-					
 						<br>
 					</div>
 
@@ -25,7 +25,7 @@
 						<label for="address-select">Choose Address: </label>
 						<select id="address-select" name="selected_address">
 							{% for address in addresses %}
-								<option value="{{ address.id }}">{{ address.get_full_address }}</option>
+								<option value="{{ address.address_id }}">{{ address.get_full_address }}</option>
 							{% endfor %}
 						</select>
 						<br>
@@ -35,12 +35,10 @@
 						<br>
 					</div>
 
-
 					<hr>
 					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Place Order">
 				</form>
 			</div>
-
 		</div>
 
 		<div class="col-lg-6">
@@ -49,14 +47,14 @@
 				<hr>
 				<h3>Order Summary</h3>
 				<hr>
-            {% for item in items %}
-				<div class="cart-row">
-					<div style="flex:2"><img class="row-image" src="{% static 'images/placeholder.png' %}"></div>
-					<div style="flex:2"><p>{{ item.game.game_name }}</p></div>
-					<div style="flex:1"><p>$ {{ item.game.price }}</p></div>
-					<div style="flex:1"><p>x {{ item.quantity }}</p></div>
-				</div>
-			{% endfor %}
+				{% for item in items %}
+					<div class="cart-row">
+						<div style="flex:2"><img class="row-image" src="{% static 'images/placeholder.png' %}"></div>
+						<div style="flex:2"><p>{{ item.game.game_name }}</p></div>
+						<div style="flex:1"><p>$ {{ item.game.price }}</p></div>
+						<div style="flex:1"><p>x {{ item.quantity }}</p></div>
+					</div>
+				{% endfor %}
 
 				<h5>Items:   {{ order.get_cart_items }}</h5>
 				<h5>Total:   {{ order.get_cart_total }}</h5>

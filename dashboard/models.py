@@ -1,3 +1,5 @@
+from datetime import timezone
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -104,7 +106,7 @@ class GameItem(models.Model):
 class StoreOrder(models.Model):
     order_id = models.AutoField(primary_key=True)
     order_status = models.CharField(max_length=11)
-    date_ordered = models.DateField()
+    date_ordered = models.DateField(default=datetime.datetime.now())
     customer = models.ForeignKey(User, models.DO_NOTHING)
     address = models.ForeignKey(Address, models.DO_NOTHING, blank=True, null=True)
     credit_card = models.ForeignKey(CreditCard, models.DO_NOTHING, blank=True, null=True)

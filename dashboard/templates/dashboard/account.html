@@ -1,0 +1,32 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+        <div class="col-md-6">
+            <h2>Saved Cards</h2>
+            <ul>
+                {% for card in cards %}
+                    <div>
+                        Card {{ card.get_hidden_number}}
+                        <button type="button" onclick="editCard({{ card.id }})">Edit</button>
+                        <button type="button" onclick="deleteCard({{ card.id }})">Delete</button>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>Saved Addresses</h2>
+            <ul>
+                {% for address in addresses %}
+                    <div>
+                        {{ address.get_full_address }}
+                        <button type="button" onclick="editAddress({{ address.id }})">Edit</button>
+                        <button type="button" onclick="deleteAddress({{ address.id }})">Delete</button>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+
+</div>
+ 
+{% endblock content%}

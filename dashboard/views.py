@@ -51,14 +51,33 @@ def cart(request):
     context = {'items': items, 'order': order}
     return render(request, 'dashboard/cart.html', context)
 
+def account(request):
+    if request.user:
+        customer = request.user
+        cards = get_credit_cards(customer)
+        addresses = get_addresses(customer)
+    else:
+        cards = []
+        addresses = []
+    context = {'cards': cards, 'addresses': addresses}
+    return render(request, 'dashboard/account.html', context)
+
+
+def get_credit_cards(customer):
+    cards = CreditCard.objects.filter(customer=customer)
+    return cards
+
+def get_addresses(customer):
+    addresses = Address.objects.filter(customer=customer)
+    return addresses
 
 def checkout(request):
     if request.user:
         customer = request.user
         order = StoreOrder.objects.get(customer=customer, order_status='In progress')
         items = order.orderitem_set.all()
-        cards = CreditCard.objects.filter(customer=customer)
-        addresses = Address.objects.filter(customer=customer)
+        cards = get_credit_cards(customer)
+        addresses = get_addresses(customer)
     else:
         items = []
         cards = []

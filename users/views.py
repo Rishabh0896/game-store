@@ -3,12 +3,16 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User,Group
+
 
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            group = Group.objects.get(name='customer_group')
+            user.groups.add(group)
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has been created! You are now able to login')
             return redirect('login')

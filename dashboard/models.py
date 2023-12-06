@@ -144,3 +144,16 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.game.price * self.quantity
         return total
+
+class Review(models.Model):
+    review_id = models.AutoField(primary_key=True)
+    customer = models.ForeignKey(User, models.DO_NOTHING)
+    game = models.ForeignKey(GameItem, models.DO_NOTHING)
+    rating = models.IntegerField()
+    text_review = models.TextField(blank=True, null=True)
+    complexity_rating = models.IntegerField()
+    language_dependency_rating = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'review'

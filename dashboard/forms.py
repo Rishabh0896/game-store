@@ -1,5 +1,5 @@
 from django import forms
-from .models import CreditCard
+from .models import CreditCard, Address
 
 class CreditCardForm(forms.ModelForm):
     class Meta:
@@ -13,3 +13,13 @@ class CreditCardForm(forms.ModelForm):
         'security_code': forms.TextInput(attrs={'placeholder': 'CVV/CVS Code'}),
     }
 
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['street_no', 'street_name', 'state_abbreviation']
+
+    widgets = { 
+        'street_no': forms.TextInput(attrs={'placeholder': 'Enter Street Number'}),
+        'street_name': forms.TextInput(attrs={'placeholder': 'Enter Street Name'}),
+        'state_abbreviation': forms.TextInput(attrs={'placeholder': 'Enter State Abbreviation'}),
+    }

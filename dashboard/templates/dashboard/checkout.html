@@ -1,7 +1,7 @@
 {% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
-    <div class="row">
+	<div class="row">
 		<div class="col-lg-6">
 			<div class="box-element" id="form-wrapper">
 				<form id="form">
@@ -17,31 +17,27 @@
 						<a href="{% url 'add_credit_card' %}">
 							Add Credit Card
 						</a>
-						
 					
 						<br>
 					</div>
 
-					<div id="shipping-info">
-						<hr>
-						<p>Shipping Information:</p>
-						<hr>
-						<div class="form-field">
-							<input class="form-control" type="text" name="address" placeholder="Address..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="city" placeholder="City..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="state" placeholder="State..">
-						</div>
-						<div class="form-field">
-							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-						</div>
+					<div id="address-method">
+						<label for="address-select">Choose Address: </label>
+						<select id="address-select" name="selected_address">
+							{% for address in addresses %}
+								<option value="{{ address.id }}">{{ address.get_full_address }}</option>
+							{% endfor %}
+						</select>
+						<br>
+						<a href="{% url 'add_address' %}">
+							Add Address
+						</a>
+						<br>
 					</div>
 
+
 					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Place Order">
 				</form>
 			</div>
 

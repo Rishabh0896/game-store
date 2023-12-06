@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import GameItem, StoreOrder, OrderItem, CreditCard
+from .models import Address, GameItem, StoreOrder, OrderItem, CreditCard
 from django.http import JsonResponse
 import json
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
-from .forms import CreditCardForm
+from .forms import AddressForm, CreditCardForm
 
 
 
@@ -57,11 +57,12 @@ def checkout(request):
         order = StoreOrder.objects.get(customer=customer, order_status='In progress')
         items = order.orderitem_set.all()
         cards = CreditCard.objects.filter(customer=customer)
+        addresses = Address.objects.filter(customer=customer)
     else:
         items = []
         cards = []
         order = {'get_cart_total': 0, 'get_cart_items': 0}
-    context = {'items': items, 'order': order, 'cards': cards}
+    context = {'items': items, 'order': order, 'cards': cards, 'addresses': addresses}
     return render(request, 'dashboard/checkout.html', context)
 
 def update_cart_item(request):
@@ -109,3 +110,17 @@ def add_credit_card(request):
     context = {'customer_id':request.user.id, 'form': form}
     return render(request, 'dashboard/add_credit_card.html', context)
 
+def add_address(request):
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.customer = request.user
+            address.save()
+            referring_page = request.META.get('HTTP_REFERER', '/')
+            return redirect(referring_page)
+    else:
+        form = AddressForm()
+    
+    context = {'customer_id': request.user.id, 'form': form}
+    return render(request, 'dashboard/add_address.html', context)

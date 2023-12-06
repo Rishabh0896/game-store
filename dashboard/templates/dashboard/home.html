@@ -4,9 +4,9 @@
     <div class="row">
         {% for gameItem in gameItems %}
             <div class="col-lg-6">
-            <img class="thumbnail" src="{% static 'images/placeholder.png' %}">
+            <a href="{% url 'game_detail'  game_id=gameItem.game_id %}"><img class="thumbnail" src="{% static 'images/placeholder.png' %}"></a>
             <div class="box-element product">
-                <h6><strong>{{ gameItem.name }}</strong></h6>
+                <a style="text-decoration: none;" href="{% url 'game_detail'  game_id=gameItem.game_id %}"><h6><strong>{{ gameItem.name }}</strong></h6></a>
                 <hr>
                 <button data-product="{{gameItem.game_id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
                 <a class="btn btn-outline-success" href="{% url 'game_detail'  game_id=gameItem.game_id %}">View</a>

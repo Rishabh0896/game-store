@@ -12,6 +12,7 @@ urlpatterns = [
     path('address/add', views.add_address, name='add_address'),
     path('order/place', views.place_order, name='place_order'),
     path('review/add', views.add_review, name='add_review'),
+    path('game/<int:game_id>', views.game_detail, name='game_detail'),
     # Manager
     path('manager_dashboard/', views.manager_dashboard, name='manager-dashboard'),
     path('fulfill_order/<int:order_id>/', views.fulfill_order, name='fulfill_order')

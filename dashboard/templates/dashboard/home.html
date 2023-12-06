@@ -9,7 +9,7 @@
                 <h6><strong>{{ gameItem.name }}</strong></h6>
                 <hr>
                 <button data-product="{{gameItem.game_id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
-                <a class="btn btn-outline-success" href="#">View</a>
+                <a class="btn btn-outline-success" href="{% url 'game_detail'  game_id=gameItem.game_id %}">View</a>
                 <a class="btn btn-outline-success" href="{% url 'add_review' %}?game_id={{gameItem.game_id}}">Review</a>
                 <h4 style="display: inline-block;float: right">${{ gameItem.price }}</h4>
             </div>

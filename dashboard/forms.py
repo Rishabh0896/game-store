@@ -16,12 +16,14 @@ class CreditCardForm(forms.ModelForm):
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['street_no', 'street_name', 'state_abbreviation']
+        fields = ['street_no', 'street_name', 'state_abbreviation', 'zip_code']
 
     widgets = { 
         'street_no': forms.TextInput(attrs={'placeholder': 'Enter Street Number'}),
         'street_name': forms.TextInput(attrs={'placeholder': 'Enter Street Name'}),
         'state_abbreviation': forms.TextInput(attrs={'placeholder': 'Enter State Abbreviation'}),
+        'zip_code': forms.TextInput(attrs={'placeholder': 'Enter Zip Code'}),
+
     }
 
 class ReviewForm(forms.ModelForm):

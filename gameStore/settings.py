@@ -84,7 +84,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'game_store_db',
+        'NAME': 'game_store_db_ver2',
         'USER': 'root',
         'PASSWORD': 'Solution838!',
         'HOST': 'localhost',

@@ -5,33 +5,42 @@
     <div class="col-md-6">
         <h2>Saved Cards</h2>
         <ul class="list-group">
-            {% for card in cards %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Card {{ card.get_hidden_number }}</span>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary btn-sm">Edit</a>
-                        <a class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                </li>
-            {% endfor %}
+            {% if cards %}
+                {% for card in cards %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Card {{ card.get_hidden_number }}</span>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'edit_credit_card' credit_card_id=card.credit_card_id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_credit_card' credit_card_id=card.credit_card_id %}" class="btn btn-danger btn-sm">Delete</a>
+                        
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                    <li class="list-group-item">No cards saved</li>
+            {% endif %}
         </ul>
     </div>
     <div class="col-md-6">
         <h2>Saved Addresses</h2>
         <ul class="list-group">
-            {% for address in addresses %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>{{ address.get_full_address }}</span>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary btn-sm">Edit</a>
-                        <a class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                </li>
-            {% endfor %}
+            {% if addresses %}
+                {% for address in addresses %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ address.get_full_address }}</span>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'edit_address' address_id=address.address_id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_address' address_id=address.address_id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">No addresses saved</li>
+            {% endif %}
         </ul>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 mt-3">
         <h2>Reviews</h2>
         <ul class="list-group">
             {% if reviews is None %}
@@ -44,7 +53,7 @@
                     </a>
                     <div class="btn-group" role="group">
                         <a href="{% url 'edit_review' review_id=review.review_id %}" class="btn btn-primary btn-sm">Edit</a>
-                        <a class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{% url 'delete_review' review_id=review.review_id %}" class="btn btn-danger btn-sm">Delete</a>
                     </div>
                 </li>
             {% endfor %}

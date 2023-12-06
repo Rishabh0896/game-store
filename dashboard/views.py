@@ -141,6 +141,28 @@ def add_credit_card(request):
     context = {'customer_id':request.user.id, 'form': form}
     return render(request, 'dashboard/add_credit_card.html', context)
 
+def edit_credit_card(request, credit_card_id):
+    context = {'action': 'update'}
+
+    if request.method == 'GET':
+        credit_card = CreditCard.objects.get(credit_card_id=credit_card_id)
+        form = CreditCardForm(instance=credit_card)
+        context['credit_card'] = credit_card
+        context['form'] =  form
+        return render(request, 'dashboard/add_credit_card.html', context)
+    
+    elif request.method == 'POST':
+        credit_card = CreditCard.objects.get(credit_card_id=credit_card_id)
+        form = CreditCardForm(request.POST, instance=credit_card)
+        if form.is_valid():
+            form.save()
+            return redirect("account")
+
+def delete_credit_card(request, credit_card_id):
+    credit_card = CreditCard.objects.get(credit_card_id=credit_card_id)
+    credit_card.delete()
+    return redirect("account")
+
 def add_address(request):
     if request.method == 'POST':
         form = AddressForm(request.POST)
@@ -154,6 +176,28 @@ def add_address(request):
     
     context = {'customer_id': request.user.id, 'form': form}
     return render(request, 'dashboard/add_address.html', context)
+
+def edit_address(request, address_id):
+    context = {'action': 'update'}
+
+    if request.method == 'GET':
+        address = Address.objects.get(address_id=address_id)
+        form = AddressForm(instance=address)
+        context['address'] = address
+        context['form'] =  form
+        return render(request, 'dashboard/add_address.html', context)
+    
+    elif request.method == 'POST':
+        address = Address.objects.get(address_id=address_id)
+        form = AddressForm(request.POST, instance=address)
+        if form.is_valid():
+            form.save()
+            return redirect("account")
+
+def delete_address(request, address_id):
+    address = Address.objects.get(address_id=address_id)
+    address.delete()
+    return redirect("account")
 
 def place_order(request):
     if request.method == 'POST':
@@ -211,6 +255,11 @@ def edit_review(request, review_id):
         if form.is_valid():
             form.save()
             return redirect("account")
+
+def delete_review(request, review_id):
+    review = Review.objects.get(review_id=review_id)
+    review.delete()
+    return redirect("account")
 
 def game_detail(request, game_id):
     game = GameItem.objects.get(game_id=game_id)

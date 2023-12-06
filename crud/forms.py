@@ -7,18 +7,18 @@ from .models import GameItem, GameMechanic, GameType, Publisher, Designer
 
 
 class GameItemForm(forms.ModelForm):
-    game_mechanic_options = ModelMultipleChoiceField(queryset=GameMechanic.objects.all()[:10],
-                                                     widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
-    game_type_options = ModelMultipleChoiceField(queryset=GameType.objects.all()[:10],
-                                                 widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
-    game_publisher_options = ModelMultipleChoiceField(queryset=Publisher.objects.all()[:10],
-                                                      widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
+    game_designer_options = ModelChoiceField(queryset=Designer.objects.all())
+    game_publisher_options = ModelChoiceField(queryset=Publisher.objects.all())
+    game_mechanic_options = ModelChoiceField(queryset=GameMechanic.objects.all())
+    game_type_options = ModelChoiceField(queryset=GameType.objects.all())
 
     class Meta:
         model = GameItem
-        exclude = ['game_id']
+        exclude = ['game_id', 'num_review', 'avg_rating', 'std_dev_rating', 'rated_complexity',
+                   'rated_language_dependency']
 
     def __init__(self, *args, **kwargs):
+        action = kwargs.pop('action', False)
         super(GameItemForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -30,41 +30,49 @@ class GameItemForm(forms.ModelForm):
             'min_time',
             'max_time',
             'is_cooperative',
+            'price',
+            'game_designer_options',
             'game_mechanic_options',
             'game_type_options',
-            'game_publisher_options',
-            # 'num_review',
-            # 'avg_rating',
-            # 'std_dev_rating',
-            Submit('submit', 'Save')
+            'game_publisher_options'
         )
+        if action != "view":
+            self.helper.layout.append(Submit('submit', 'Submit'))
         self.helper.form_method = 'POST'
 
-    def clean(self):
-        cleaned_data = super().clean()
+    def save(self, commit=True):
+        instance = super(GameItemForm, self).save(commit=False)
+        instance.mechanic = self.cleaned_data['game_mechanic_options']
+        instance.type = self.cleaned_data['game_type_options']
+        instance.publisher = self.cleaned_data['game_publisher_options']
+        instance.designer = self.cleaned_data['game_designer_options']
 
-        # Exclude validation for ModelMultipleChoiceField fields
-        cleaned_data['game_mechanic_options'] = self.cleaned_data.get('game_mechanic_options')
-        cleaned_data['game_type_options'] = self.cleaned_data.get('game_type_options')
-        cleaned_data['game_publisher_options'] = self.cleaned_data.get('game_publisher_options')
-
-        return cleaned_data
+        if commit:
+            instance.save()
 
 
 class PublisherForm(forms.ModelForm):
     class Meta:
         model = Publisher
-        exclude = ['publisher_id']
+        exclude = ['publisher_id', 'num_published']
 
     def __init__(self, *args, **kwargs):
+        action = kwargs.pop('action', False)
         super(PublisherForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'publisher_name',
-            'num_games_published',
-            Submit('submit', 'Save')
+            'publisher_name'
         )
+        if action != "view":
+            self.helper.layout.append(Submit('submit', 'Submit'))
         self.helper.form_method = 'POST'
+
+    def save(self, commit=True):
+        instance = super(PublisherForm, self).save(commit=False)
+        instance.num_published = 0 # TODO Check with Trang
+
+        if commit:
+            instance.save()
 
 
 class DesignerForm(forms.ModelForm):
@@ -73,12 +81,14 @@ class DesignerForm(forms.ModelForm):
         exclude = ['designer_id']
 
     def __init__(self, *args, **kwargs):
+        action = kwargs.pop('action', False)
         super(DesignerForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'designer_name',
-            Submit('submit', 'Save')
+            'designer_name'
         )
+        if action != "view":
+            self.helper.layout.append(Submit('submit', 'Submit'))
         self.helper.form_method = 'POST'
 
 
@@ -88,12 +98,14 @@ class GameMechanicForm(forms.ModelForm):
         exclude = ['mechanic_id']
 
     def __init__(self, *args, **kwargs):
+        action = kwargs.pop('action', False)
         super(GameMechanicForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'mechanic_name',
-            Submit('submit', 'Save')
+            'mechanic_name'
         )
+        if action != "view":
+            self.helper.layout.append(Submit('submit', 'Submit'))
         self.helper.form_method = 'POST'
 
 
@@ -103,10 +115,12 @@ class GameTypeForm(forms.ModelForm):
         exclude = ['type_id']
 
     def __init__(self, *args, **kwargs):
+        action = kwargs.pop('action', False)
         super(GameTypeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            'type_name',
-            Submit('submit', 'Save')
+            'type_name'
         )
+        if action != "view":
+            self.helper.layout.append(Submit('submit', 'Submit'))
         self.helper.form_method = 'POST'

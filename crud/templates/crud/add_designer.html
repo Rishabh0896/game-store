@@ -2,7 +2,7 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h2>{% if game_action == "view" %}View{% elif game_action == "update" %}Update{% else %}Add{% endif %} Designer</h2>
+    <h2>{% if action == "view" %}View{% elif action == "update" %}Update{% else %}Add{% endif %} Designer</h2>
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}

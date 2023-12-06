@@ -1,29 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from django.db import models
 from .forms import GameItemForm, PublisherForm, DesignerForm, GameMechanicForm, GameTypeForm
 from django.contrib import messages
-from .models import GameItem, GameMechanic, GameType, Publisher, GameItemGameMechanic, GameItemGameType, \
-    GameItemPublisher
-
-game_mechanic_options = []
-game_type_options = []
-game_publisher_options = []
+from .models import GameItem, GameMechanic, GameType, Publisher, Designer
 
 
 def view_game(request, game_id):
     context = {
-        'game_action': 'view',
+        'action': 'view',
     }
     game = get_object_or_404(GameItem, game_id=game_id)
-    game_type = get_object_or_404(GameItemGameType, game=game_id)
-    game_mechanic_options = get_object_or_404(GameItemGameMechanic, game=game_id)
-    game_publisher = get_object_or_404(GameItemPublisher, game=game_id)
     form = GameItemForm(initial={
         'game_mechanic_options': game.mechanic,
-        'game_type_options': game.game_type,
-        'game_publisher_options': game.publisher
-    })
+        'game_type_options': game.type,
+        'game_publisher_options': game.publisher,
+        'game_designer_options': game.designer
+    }, instance=game, action='view')
     context['form'] = form
     return render(request, 'crud/add_game.html', context)
 
@@ -31,43 +23,14 @@ def view_game(request, game_id):
 def add_game(request):
     # populate_dropdown_data()
     context = {
-        'game_action': 'add',
-        'game_mechanic_options': game_mechanic_options,
-        'game_type_options': game_type_options,
-        'game_publisher_options': game_publisher_options
+        'action': 'add',
     }
     if request.method == 'POST':
         form = GameItemForm(request.POST)
         context['form'] = form
         if form.is_valid():
-            selected_publisher_id = form.cleaned_data['game_publisher_options']
-            selected_game_type_id = form.cleaned_data['game_type_options']
-            selected_mechanic_id = form.cleaned_data['game_mechanic_options']
-            game_id = 0
             if not hasattr(form.instance, 'game_id') or form.instance.game_id is None:
-                game_id = generate_next_game_id()
-                form.instance.game_id = game_id
-            form.save()
-            if context['game_action'] == 'add':
-                game_item_instance = GameItem.objects.get(game_id=game_id)
-
-                for mechanic_id in selected_mechanic_id:
-                    game_mechanic_instance = GameMechanic.objects.get(mechanic_id=mechanic_id)
-                    relation_game_mechanic = GameItemGameMechanic(game=game_item_instance,
-                                                                  mechanic=game_mechanic_instance)
-                    relation_game_mechanic.save()
-
-                for publisher_id in selected_publisher_id:
-                    game_publisher_instance = Publisher.objects.get(publisher_id=publisher_id)
-                    relation_game_publisher = GameItemPublisher(game=game_item_instance,
-                                                                publisher=game_publisher_instance)
-                    relation_game_publisher.save()
-
-                for game_type_id in selected_game_type_id:
-                    game_type_instance = GameType.objects.get(type_id=game_type_id)
-                    relation_game_type = GameItemGameType(game=game_item_instance, type=game_type_instance)
-                    relation_game_type.save()
-
+                form.save()
             messages.success(request, f'Game Item has been created')
             return redirect('store-home')
     else:
@@ -75,12 +38,6 @@ def add_game(request):
         context['form'] = form
 
     return render(request, 'crud/add_game.html', context)
-
-
-def generate_next_game_id():
-    max_game_id = GameItem.objects.aggregate(models.Max('game_id'))['game_id__max']
-    game_id = max_game_id + 1 if max_game_id else 1
-    return game_id
 
 
 def manage_game(request):
@@ -95,7 +52,7 @@ def manage_game(request):
 
 def update_game(request, game_id):
     context = {
-        'game_action': 'update',
+        'action': 'update',
     }
     game = get_object_or_404(GameItem, game_id=game_id)
 
@@ -103,7 +60,6 @@ def update_game(request, game_id):
         form = GameItemForm(request.POST, instance=game)
         context['form'] = form
         if form.is_valid():
-            print(f"Published Year Input: {form.cleaned_data['published_year']}")
             form.save()
             messages.success(request, f'Game Item has been updated')
             return redirect('manage_game')
@@ -139,14 +95,47 @@ def add_publisher(request):
 
 
 def read_publisher(request, publisher_id):
+    context = {}
+    publisher = get_object_or_404(Publisher, publisher_id=publisher_id)
+    form = PublisherForm(instance=publisher, action='view')
+    context['form'] = form
+    return render(request, 'crud/add_publisher.html', context)
 
-    return
 
-def update_publisher(request,publisher_id):
-    return
+def manage_publisher(request):
+    if 'search' in request.GET:
+        search = request.GET['search']
+        publishers = Publisher.objects.filter(publisher_name__icontains=search)
+    else:
+        publishers = Publisher.objects.all()
+    context = {'publishers': publishers}
+    return render(request, 'crud/manage_publisher.html', context)
+
+
+def update_publisher(request, publisher_id):
+    context = {
+        'action': 'update',
+    }
+    publisher = get_object_or_404(Publisher, publisher_id=publisher_id)
+
+    if request.method == 'POST':
+        form = PublisherForm(request.POST, instance=publisher)
+        context['form'] = form
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Publisher has been updated')
+            return redirect('manage_publisher')
+    else:
+        form = PublisherForm(instance=publisher)
+        context['form'] = form
+    return render(request, 'crud/add_publisher.html', context)
+
 
 def delete_publisher(request, publisher_id):
-    return
+    publisher = get_object_or_404(Publisher, publisher_id=publisher_id)
+    publisher.delete()
+    # Redirect to the search page or any other appropriate page
+    return redirect('manage_publisher')
 
 
 # Designer
@@ -158,7 +147,7 @@ def add_designer(request):
         context['form'] = form
         if form.is_valid():
             form.save()
-            messages.success(request, f'designer has been created')
+            messages.success(request, f'Designer has been created')
         return redirect('store-home')
     else:
         form = DesignerForm()
@@ -166,14 +155,50 @@ def add_designer(request):
 
     return render(request, 'crud/add_designer.html', context)
 
-def read_designer(request, designer_id):
-    return
 
-def update_designer(request,designer_id):
-    return
+def read_designer(request, designer_id):
+    context = {}
+    designer = get_object_or_404(Designer, designer_id=designer_id)
+    form = DesignerForm(instance=designer, action="view")
+    context['form'] = form
+    return render(request, 'crud/add_designer.html', context)
+
+
+def manage_designer(request):
+    if 'search' in request.GET:
+        search = request.GET['search']
+        designers = Designer.objects.filter(designer_name__icontains=search)
+    else:
+        designers = Designer.objects.all()
+    context = {'designers': designers}
+    return render(request, 'crud/manage_designer.html', context)
+
+
+def update_designer(request, designer_id):
+    context = {
+        'action': 'update',
+    }
+    designer = get_object_or_404(Designer, designer_id=designer_id)
+
+    if request.method == 'POST':
+        form = DesignerForm(request.POST, instance=designer)
+        context['form'] = form
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'designer has been updated')
+            return redirect('manage_designer')
+    else:
+        form = DesignerForm(instance=designer)
+        context['form'] = form
+    return render(request, 'crud/add_designer.html', context)
+
 
 def delete_designer(request, designer_id):
-    return
+    designer = get_object_or_404(Designer, designer_id=designer_id)
+    designer.delete()
+    # Redirect to the search page or any other appropriate page
+    return redirect('manage_designer')
+
 
 # GameType
 
@@ -184,7 +209,7 @@ def add_gametype(request):
         context['form'] = form
         if form.is_valid():
             form.save()
-            messages.success(request, f'gametype has been created')
+            messages.success(request, f'Game Type has been created')
         return redirect('store-home')
     else:
         form = GameTypeForm()
@@ -192,14 +217,52 @@ def add_gametype(request):
 
     return render(request, 'crud/add_gametype.html', context)
 
-def read_gametype(request, gametype_id):
-    return
 
-def update_gametype(request,gametype_id):
-    return
+def read_gametype(request, type_id):
+    context = {}
+    gametype = get_object_or_404(GameType, type_id=type_id)
+    form = GameTypeForm(instance=gametype, action="view")
+    context['form'] = form
+    return render(request, 'crud/add_gametype.html', context)
 
-def delete_gametype(request, gametype_id):
-    return
+
+def manage_gametype(request):
+    if 'search' in request.GET:
+        search = request.GET['search']
+        gametypes = GameType.objects.filter(type_name__icontains=search)
+    else:
+        gametypes = GameType.objects.all()
+    context = {'gametypes': gametypes}
+    return render(request, 'crud/manage_gametype.html', context)
+
+
+
+
+def update_gametype(request, type_id):
+    context = {
+        'action': 'update',
+    }
+    gametype = get_object_or_404(GameType, type_id=type_id)
+
+    if request.method == 'POST':
+        form = GameTypeForm(request.POST, instance=gametype)
+        context['form'] = form
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Game Type has been updated')
+            return redirect('manage_gametype')
+    else:
+        form = GameTypeForm(instance=gametype)
+        context['form'] = form
+    return render(request, 'crud/add_gametype.html', context)
+
+
+def delete_gametype(request, type_id):
+    gametype = get_object_or_404(GameType, type_id=type_id)
+    gametype.delete()
+    # Redirect to the search page or any other appropriate page
+    return redirect('manage_gametype')
+
 
 # Game Mechanic
 def add_gamemechanic(request):
@@ -209,7 +272,7 @@ def add_gamemechanic(request):
         context['form'] = form
         if form.is_valid():
             form.save()
-            messages.success(request, f'gamemechanic has been created')
+            messages.success(request, f'Game Mechanic has been created')
         return redirect('store-home')
     else:
         form = GameMechanicForm()
@@ -217,11 +280,47 @@ def add_gamemechanic(request):
 
     return render(request, 'crud/add_gamemechanic.html', context)
 
-def read_gamemechanic(request, gamemechanic_id):
-    return
 
-def update_gamemechanic(request,gamemechanic_id):
-    return
+def read_gamemechanic(request, mechanic_id):
+    context = {}
+    gamemechanic = get_object_or_404(GameMechanic, mechanic_id=mechanic_id)
+    form = GameMechanicForm(instance=gamemechanic, action="view")
+    context['form'] = form
+    return render(request, 'crud/add_gamemechanic.html', context)
 
-def delete_gamemechanic(request, gamemechanic_id):
-    return
+
+def manage_gamemechanic(request):
+    if 'search' in request.GET:
+        search = request.GET['search']
+        gamemechanics = GameMechanic.objects.filter(mechanic_name__icontains=search)
+    else:
+        gamemechanics = GameMechanic.objects.all()
+    context = {'gamemechanics': gamemechanics}
+    return render(request, 'crud/manage_gamemechanic.html', context)
+
+
+
+def update_gamemechanic(request, mechanic_id):
+    context = {
+        'action': 'update',
+    }
+    gamemechanic = get_object_or_404(GameMechanic, mechanic_id=mechanic_id)
+
+    if request.method == 'POST':
+        form = GameMechanicForm(request.POST, instance=gamemechanic)
+        context['form'] = form
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Game Mechanic has been updated')
+            return redirect('manage_gamemechanic')
+    else:
+        form = GameMechanicForm(instance=gamemechanic)
+        context['form'] = form
+    return render(request, 'crud/add_gamemechanic.html', context)
+
+
+def delete_gamemechanic(request, mechanic_id):
+    gamemechanic = get_object_or_404(GameMechanic, mechanic_id=mechanic_id)
+    gamemechanic.delete()
+    # Redirect to the search page or any other appropriate page
+    return redirect('manage_gamemechanic')

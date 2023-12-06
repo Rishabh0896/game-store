@@ -1,12 +1,12 @@
 import datetime
 from django.shortcuts import render, redirect
-from .models import Address, GameItem, StoreOrder, OrderItem, CreditCard
+from .models import Address, GameItem, Review, StoreOrder, OrderItem, CreditCard
 from django.http import JsonResponse
 import json
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
-from .forms import AddressForm, CreditCardForm
-
+from .forms import AddressForm, CreditCardForm, ReviewForm
+from django.db import connection
 
 
 # Create your views here.
@@ -154,4 +154,32 @@ def place_order(request):
         order.date_ordered = datetime.datetime.now()
         order.save()
         referring_page = request.META.get('HTTP_REFERER', '/')
+        return redirect("store-home")
+
+def execute_insert_review_and_update_score(p_customer_id, p_game_id, p_rating, p_text_review, p_complexity_rating, p_language_dependency_rating):
+    with connection.cursor() as cursor:
+        # Call the stored procedure
+        cursor.callproc(
+            'insert_review_and_update_score',
+            [p_customer_id, p_game_id, p_rating, p_text_review, p_complexity_rating, p_language_dependency_rating]
+        )
+
+def add_review(request):
+    if request.method == 'GET':
+        form = ReviewForm()
+        game_id = request.GET['game_id']
+        game = GameItem.objects.get(game_id=game_id)
+        context = {'game': game, 'form': form}
+        return render(request, 'dashboard/add_review.html', context)
+    
+    elif request.method == 'POST':
+        customer = request.user
+        game = GameItem.objects.get(game_id=request.POST['game_id'])
+        rating = request.POST['rating']
+        text_review = request.POST['text_review']
+        complexity_rating = request.POST['complexity_rating']
+        language_dependency_rating = request.POST['language_dependency_rating']
+
+        execute_insert_review_and_update_score(customer.id, game.game_id, rating, text_review, complexity_rating, language_dependency_rating)
+
         return redirect("store-home")

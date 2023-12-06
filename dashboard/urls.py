@@ -11,4 +11,5 @@ urlpatterns = [
     path('credit_card/add', views.add_credit_card, name='add_credit_card'),
     path('address/add', views.add_address, name='add_address'),
     path('order/place', views.place_order, name='place_order'),
+    path('review/add', views.add_review, name='add_review')
 ]

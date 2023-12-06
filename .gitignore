@@ -147,6 +147,10 @@ GitHub.sublime-settings
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+crud/__pycache__/
+dashboard/__pycache__/
+gameStore/__pycache__/
+users/__pycache__/
 *.pyo
 *.pyd
 

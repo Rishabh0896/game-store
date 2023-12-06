@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 def staff_required(function):
     def _function(request, *args, **kwargs):
         if not request.user.groups.filter(name='staff_group').exists():
-            messages.info(request, 'You do not have permission to access this page.')
+            messages.info(request, 'You do not have permission cto access this page.')
             return redirect('store-home')
         return function(request, *args, **kwargs)
 

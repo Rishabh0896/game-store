@@ -57,10 +57,12 @@ def account(request):
         customer = request.user
         cards = get_credit_cards(customer)
         addresses = get_addresses(customer)
+        reviews = get_reviews_by_customer(customer)
+
     else:
         cards = []
         addresses = []
-    context = {'cards': cards, 'addresses': addresses}
+    context = {'cards': cards, 'addresses': addresses , 'reviews': reviews}
     return render(request, 'dashboard/account.html', context)
 
 
@@ -192,6 +194,23 @@ def add_review(request):
         execute_insert_review_and_update_score(customer.id, game.game_id, rating, text_review, complexity_rating, language_dependency_rating)
         return redirect("store-home")
 
+def edit_review(request, review_id):
+    context = {'action': 'update'}
+
+    if request.method == 'GET':
+        review = Review.objects.get(review_id=review_id)
+        form = ReviewForm(instance=review)
+        context['review'] = review
+        context['form'] =  form
+        return render(request, 'dashboard/add_review.html', context)
+    
+    elif request.method == 'POST':
+        review = Review.objects.get(review_id=review_id)
+        print(review)
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("account")
 
 def game_detail(request, game_id):
     game = GameItem.objects.get(game_id=game_id)

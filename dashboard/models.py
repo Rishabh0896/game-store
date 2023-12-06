@@ -21,6 +21,10 @@ class Address(models.Model):
     def get_full_address(self):
         return self.street_no + " " + self.street_name + ", " + self.state_abbreviation + " " + self.zip_code
 
+    def __str__(self):
+        return self.street_no + " " + self.street_name + ", " + self.state_abbreviation + " " + self.zip_code
+
+
 class CreditCard(models.Model):
     credit_card_id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(User, models.DO_NOTHING)
@@ -37,7 +41,11 @@ class CreditCard(models.Model):
     
     @property
     def get_hidden_number(self):
-        return "**"+ self.credit_card_number[-4:]
+        return "**" + self.credit_card_number[-4:]
+
+    def __str__(self):
+        return "**" + self.credit_card_number[-4:]
+
 
 class Designer(models.Model):
     designer_id = models.AutoField(primary_key=True)
@@ -126,6 +134,9 @@ class StoreOrder(models.Model):
         total = sum([item.get_total for item in items])
         return total
 
+    def __str__(self):
+        return StoreOrder.order_id
+
 
 
 
@@ -144,6 +155,7 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.game.price * self.quantity
         return total
+
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)

@@ -1,0 +1,104 @@
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    #total-orders {
+        background-color: #3498db;
+    }
+
+    #orders-fulfilled {
+        background-color: #2ecc71;
+    }
+
+    #orders-in-cart {
+        background-color: #f39c12;
+    }
+
+    /* Add a class for the chart container */
+    .chart-container {
+        position: relative;
+        height: 300px;
+        width: 300px;
+        margin: auto;
+    }
+
+    /* Add a class to align the chart to the right */
+    .align-right {
+        float: right;
+        margin-right: 20px;
+    }
+</style>
+
+<br>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center text-white mb-3" id="total-orders">
+            <div class="card-header">
+                <h5 class="card-title">Total Orders</h5>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ total_orders }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center text-white mb-3" id="orders-in-cart">
+            <div class="card-header">
+                <h5 class="card-title">In-cart Orders</h5>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ total_orders_in_cart }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center text-white mb-3" id="orders-fulfilled">
+            <div class="card-header">
+                <h5 class="card-title">Fulfilled Orders</h5>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ total_fulfilled_orders }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add a container for the pie chart and apply the align-right class -->
+<div class="chart-container align-right">
+    <canvas id="pie-chart"></canvas>
+</div>
+
+<script>
+    // Retrieve data from Django template variables
+    var totalOrders = {{ total_orders }};
+    var ordersInCart = {{ total_orders_in_cart }};
+    var fulfilledOrders = {{ total_fulfilled_orders }};
+
+    // Calculate the percentage of fulfilled orders and in-cart orders
+    var percentageFulfilled = (fulfilledOrders / totalOrders) * 100;
+    var percentageInCart = (ordersInCart / totalOrders) * 100;
+
+    // Create a pie chart using Chart.js
+    var ctx = document.getElementById('pie-chart').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Fulfilled', 'In Cart', 'Pending'],
+            datasets: [{
+                data: [percentageFulfilled, percentageInCart, 100 - (percentageFulfilled + percentageInCart)],
+                backgroundColor: ['#2ecc71', '#f39c12', '#e74c3c'],
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom',
+            },
+            title: {
+                display: true,
+                text: 'Order Fulfillment Percentage'
+            }
+        }
+    });
+</script>

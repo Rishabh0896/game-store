@@ -1,0 +1,48 @@
+{% extends "dashboard/manager_base.html" %}
+{% load static %}
+{% block content %}
+    {% include 'dashboard/store_order_status.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Pending Orders</h5>
+            <hr>
+            <div card card-body>
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date Ordered</th>
+                        <th>Shipping Address</th>
+                        <th>Details</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if pending_orders %}
+                        {% for order in pending_orders %}
+                            <tr>
+                                <td>{{ order.order_id }}</td>
+                                <td>{{ order.date_ordered }}</td>
+                                <td>{{ order.address }}</td>
+                                <td>{{ order.credit_card }}</td>
+                                <td>{{ order.order_status }}</td>
+                                <td>
+                                    <form method="post" action="{% url 'fulfill_order' order.order_id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success">Fulfill</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>No pending orders</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

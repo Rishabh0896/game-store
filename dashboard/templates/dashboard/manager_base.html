@@ -19,29 +19,25 @@
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-            <a class="navbar-brand mr-4" href="/">Game Store</a>
+            <a class="navbar-brand mr-4" href="{% url 'manager-dashboard' %}">Game Store</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto w-100">
-                    <a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a>
-                    <a class="nav-item nav-link" href="{% url 'store-about' %}">About</a>
+                    <a class="nav-item nav-link" href="{% url 'manager-dashboard' %}">Orders</a>
+                    <a class="nav-item nav-link" href="{% url 'revenue-summary' %}">Revenue</a>
+                    <a class="nav-item nav-link" href="{% url 'game-leaderboard' %}">Performance</a>
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav ">
                     {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                        <a class="nav-item nav-link" href="{% url 'account' %}">Account</a>
                         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                     {% else %}
                         <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                         <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                     {% endif %}
-                    <a href="{% url 'cart' %}">
-	    		        <img  id="cart-icon" src="{% static 'images/cart.png' %}">
-	    	        </a>
                 </div>
             </div>
         </div>

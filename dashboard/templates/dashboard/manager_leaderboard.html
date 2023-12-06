@@ -1,0 +1,55 @@
+{% extends "dashboard/manager_base.html" %}
+{% load static %}
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        #total-revenue {
+            background-color: #3498db;
+        }
+    </style>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="publisher_game_count">
+                <div class="card-header">
+                    <h5 class="card-title">Publisher with most games</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${{ publisher_name }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="total-revenue">
+                <div class="card-header">
+                    <h5 class="card-title">Total Revenue</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${{ total_revenue }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="total-revenue">
+                <div class="card-header">
+                    <h5 class="card-title">Total Revenue</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${{ total_revenue }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="total-revenue">
+                <div class="card-header">
+                    <h5 class="card-title">Total Revenue</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${{ total_revenue }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

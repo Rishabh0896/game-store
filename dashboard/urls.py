@@ -21,5 +21,7 @@ urlpatterns = [
     path('game/<int:game_id>', views.game_detail, name='game_detail'),
     # Manager
     path('manager_dashboard/', views.manager_dashboard, name='manager-dashboard'),
-    path('fulfill_order/<int:order_id>/', views.fulfill_order, name='fulfill_order')
+    path('fulfill_order/<int:order_id>/', views.fulfill_order, name='fulfill_order'),
+    path('revenue_summary/', views.revenue_summary, name='revenue-summary'),
+    path('game_leaderboard/', views.leader_board, name='game-leaderboard')
 ]

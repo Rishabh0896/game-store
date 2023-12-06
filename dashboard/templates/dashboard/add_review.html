@@ -6,8 +6,8 @@
   <h1>Add Review for {{ game.game_name }}</h1>
   <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <input type="hidden" name="game_id" value="{{ game.game_id }}">
-    <button type="submit">Save</button>
+    <button class="btn btn-info m-2" type="submit">Save</button>
   </form>
 {% endblock %}

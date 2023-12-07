@@ -245,6 +245,10 @@ def execute_insert_review_and_update_score(p_customer_id, p_game_id, p_rating, p
         )
 
 
+
+
+
+
 def add_review(request):
     if request.method == 'GET':
         form = ReviewForm()
@@ -261,9 +265,13 @@ def add_review(request):
         complexity_rating = request.POST['complexity_rating']
         language_dependency_rating = request.POST['language_dependency_rating']
 
-        execute_insert_review_and_update_score(customer.id, game.game_id, rating, text_review, complexity_rating,
+        try:
+            execute_insert_review_and_update_score(customer.id, game.game_id, rating, text_review, complexity_rating,
                                                language_dependency_rating)
-        return redirect("store-home")
+            return redirect("store-home")
+        except Exception as e:
+            form.add_error(None, str(e))
+        
 
 
 def edit_review(request, review_id):
@@ -327,7 +335,11 @@ def fulfill_order(request, order_id):
 @login_required
 @manager_required
 def revenue_summary(request):
-    game_revenue = call_stored_procedure(proc_name='calculate_game_revenue')
+    try:
+        game_revenue = call_stored_procedure(proc_name='calculate_game_revenue')
+    except Exception as e:
+        print(e)
+        game_revenue = []
     for gr in game_revenue:
         print(f"Game: {gr[0]}, Total Revenue: {gr[1]}")
     total_revenue = get_total_revenue()
@@ -376,38 +388,57 @@ def call_stored_procedure(proc_name):
 
 
 def get_total_revenue():
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT calculate_total_revenue()")
-        total_revenue = cursor.fetchone()[0]
-    return total_revenue
-
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT calculate_total_revenue()")
+            total_revenue = cursor.fetchone()[0]
+        return total_revenue
+    except Exception as e:
+        print(e)
+        return "Error"
 
 def get_most_grossing_publisher():
-    with connection.cursor() as cursor:
-        cursor.callproc('get_most_grossing_publisher')
-        results = cursor.fetchall()
-    return results
+    try:
+        with connection.cursor() as cursor:
+            cursor.callproc('get_most_grossing_publisher')
+            results = cursor.fetchall()
+        return results
+    except Exception as e:
+        print(e)
+        return "Error"
 
 
 def get_most_grossing_designer():
-    with connection.cursor() as cursor:
-        cursor.callproc('get_most_grossing_designer')
-        results = cursor.fetchall()
-    return results
+    try:
+        with connection.cursor() as cursor:
+            cursor.callproc('get_most_grossing_designer')
+            results = cursor.fetchall()
+        return results
+    except Exception as e:
+        print(e)
+        return [["Error", "Error"]]
 
 
 def get_most_grossing_game_type():
-    with connection.cursor() as cursor:
-        cursor.callproc('get_most_grossing_game_type')
-        results = cursor.fetchall()
-    return results
+    try:
+        with connection.cursor() as cursor:
+            cursor.callproc('get_most_grossing_game_type')
+            results = cursor.fetchall()
+        return results
+    except Exception as e:
+        print(e)
+        return [["Error", "Error"]]
 
 
 def get_most_grossing_game_mechanic():
-    with connection.cursor() as cursor:
-        cursor.callproc('get_most_grossing_game_mechanic')
-        results = cursor.fetchall()
-    return results
+    try:
+        with connection.cursor() as cursor:
+            cursor.callproc('get_most_grossing_game_mechanic')
+            results = cursor.fetchall()
+        return results
+    except Exception as e:
+        print(e)
+        return [["Error", "Error"]]
 
 # Staff
 

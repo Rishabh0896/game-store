@@ -62,11 +62,16 @@ def account(request):
         cards = get_credit_cards(customer)
         addresses = get_addresses(customer)
         reviews = get_reviews_by_customer(customer)
+        placed_orders = StoreOrder.objects.filter(customer=customer, order_status='Placed')
+        fulfilled_orders = StoreOrder.objects.filter(customer=customer, order_status='Fulfilled')
 
     else:
         cards = []
         addresses = []
-    context = {'cards': cards, 'addresses': addresses, 'reviews': reviews}
+        reviews = []
+        placed_orders = []  
+        fulfilled_orders = []
+    context = {'cards': cards, 'addresses': addresses, 'reviews': reviews, 'placed_orders': placed_orders, 'fulfilled_orders': fulfilled_orders}
     return render(request, 'dashboard/account.html', context)
 
 
@@ -132,6 +137,11 @@ def update_cart_item(request):
 
     return JsonResponse("Item Updated", safe=False);
 
+def cancel_order(request, order_id):
+    order = get_object_or_404(StoreOrder, order_id=order_id)
+    if order.order_status == 'Placed':
+        order.delete()
+    return redirect('account')
 
 def add_credit_card(request):
     if request.method == 'POST':

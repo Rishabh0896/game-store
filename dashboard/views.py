@@ -268,7 +268,7 @@ def add_review(request):
         try:
             execute_insert_review_and_update_score(customer.id, game.game_id, rating, text_review, complexity_rating,
                                                language_dependency_rating)
-            return redirect("store-home")
+            return redirect('game_detail', game_id=game.game_id)
         except Exception as e:
             form.add_error(None, str(e))
         
@@ -400,12 +400,12 @@ def get_total_revenue():
 def get_most_grossing_publisher():
     try:
         with connection.cursor() as cursor:
-            cursor.callproc('get_most_grossing_publisher')
+            cursor.callproc('get_most_grossing_producer')
             results = cursor.fetchall()
         return results
     except Exception as e:
         print(e)
-        return "Error"
+        return [["Error", "Error"]]
 
 
 def get_most_grossing_designer():

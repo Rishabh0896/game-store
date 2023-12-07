@@ -385,14 +385,38 @@ def get_most_grossing_designer():
         results = cursor.fetchall()
     return results
 
+
 def get_most_grossing_game_type():
     with connection.cursor() as cursor:
         cursor.callproc('get_most_grossing_game_type')
         results = cursor.fetchall()
     return results
 
+
 def get_most_grossing_game_mechanic():
     with connection.cursor() as cursor:
         cursor.callproc('get_most_grossing_game_mechanic')
         results = cursor.fetchall()
     return results
+
+# Staff
+
+
+def staff_dashboard(request):
+    context = {}
+    queryset = GameItem.objects.select_related('publisher', 'designer', 'type', 'mechanic').values(
+        'game_id',
+        'game_name',
+        'publisher__publisher_id',
+        'publisher__publisher_name',
+        'designer__designer_id',
+        'designer__designer_name',
+        'type__type_id',
+        'type__type_name',
+        'mechanic__mechanic_id',
+        'mechanic__mechanic_name',
+        'price'
+    )
+    context['game_items'] = queryset
+    return render(request, 'dashboard/staff_dashboard.html', context)
+

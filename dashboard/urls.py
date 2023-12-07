@@ -23,5 +23,7 @@ urlpatterns = [
     path('manager_dashboard/', views.manager_dashboard, name='manager-dashboard'),
     path('fulfill_order/<int:order_id>/', views.fulfill_order, name='fulfill_order'),
     path('revenue_summary/', views.revenue_summary, name='revenue-summary'),
-    path('game_leaderboard/', views.leader_board, name='game-leaderboard')
+    path('game_leaderboard/', views.leader_board, name='game-leaderboard'),
+    # Staff
+    path('staff-dashboard/', views.staff_dashboard, name='staff-dashboard')
 ]

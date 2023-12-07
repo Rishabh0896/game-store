@@ -1,0 +1,46 @@
+{% extends "dashboard/staff_base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/main.css' %}">
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Games</h5>
+            <hr>
+            <div class="card card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th><a href="{% url 'manage_game' %}">Game Name</a></th>
+                            <th><a href="{% url 'manage_publisher' %}">Publisher</a></th>
+                            <th><a href="{% url 'manage_designer' %}">Designer</a></th>
+                            <th><a href="{% url 'manage_gametype' %}">Game Type</a></th>
+                            <th><a href="{% url 'manage_gamemechanic' %}">Mechanics</a></th>
+                            <th>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if game_items %}
+                            {% for item in game_items %}
+                                <tr>
+                                    <td><a href="{% url 'update_game' item.game_id %}">{{ item.game_name }}</a></td>
+                                    <td>{{ item.publisher__publisher_name }}</td>
+                                    <td>{{ item.designer__designer_name }}</td>
+                                    <td>{{ item.type__type_name }}</td>
+                                    <td>{{ item.mechanic__mechanic_name }}</td>
+                                    <td>{{ item.price }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td>No games in the database</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

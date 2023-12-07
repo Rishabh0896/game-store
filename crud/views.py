@@ -71,7 +71,12 @@ def update_game(request, game_id):
             messages.success(request, f'Game Item has been updated')
             return redirect('manage_game')
     else:
-        form = GameItemForm(instance=game)
+        form = GameItemForm(instance=game, initial={
+            'game_mechanic_options': game.mechanic,
+            'game_type_options': game.type,
+            'game_publisher_options': game.publisher,
+            'game_designer_options': game.designer
+        })
         context['form'] = form
     return render(request, 'crud/add_game.html', context)
 

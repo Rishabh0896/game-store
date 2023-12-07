@@ -52,6 +52,6 @@ class CustomLoginView(LoginView):
         if user.groups.filter(name='manager_group').exists():
             return reverse('manager-dashboard')  # Redirect to the dashboard for manager users
         elif user.groups.filter(name='staff_group').exists():
-            return reverse('store-home')  # TODO : Change this to staff dashboard
+            return reverse('staff-dashboard')
         else:
             return reverse('store-home')

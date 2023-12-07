@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.urls import reverse
+
 from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User,Group
+from django.contrib.auth.models import User, Group
+from django.contrib.auth.views import LoginView
 
 
 def register(request):
@@ -42,3 +45,13 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
+class CustomLoginView(LoginView):
+    def get_success_url(self):
+        user = self.request.user
+        # Add your condition to check the user's attributes
+        if user.groups.filter(name='manager_group').exists():
+            return reverse('manager-dashboard')  # Redirect to the dashboard for manager users
+        elif user.groups.filter(name='staff_group').exists():
+            return reverse('store-home')  # TODO : Change this to staff dashboard
+        else:
+            return reverse('store-home')

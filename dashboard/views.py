@@ -1,6 +1,9 @@
 import datetime
+
+from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 
+from crud.models import Publisher, Designer, GameType, GameMechanic
 from .decorators import manager_required
 from .models import Address, GameItem, Review, StoreOrder, OrderItem, CreditCard
 from django.http import JsonResponse
@@ -63,7 +66,7 @@ def account(request):
     else:
         cards = []
         addresses = []
-    context = {'cards': cards, 'addresses': addresses , 'reviews': reviews}
+    context = {'cards': cards, 'addresses': addresses, 'reviews': reviews}
     return render(request, 'dashboard/account.html', context)
 
 
@@ -145,6 +148,7 @@ def add_credit_card(request):
     context = {'customer_id': request.user.id, 'form': form}
     return render(request, 'dashboard/add_credit_card.html', context)
 
+
 def edit_credit_card(request, credit_card_id):
     context = {'action': 'update'}
 
@@ -152,15 +156,16 @@ def edit_credit_card(request, credit_card_id):
         credit_card = CreditCard.objects.get(credit_card_id=credit_card_id)
         form = CreditCardForm(instance=credit_card)
         context['credit_card'] = credit_card
-        context['form'] =  form
+        context['form'] = form
         return render(request, 'dashboard/add_credit_card.html', context)
-    
+
     elif request.method == 'POST':
         credit_card = CreditCard.objects.get(credit_card_id=credit_card_id)
         form = CreditCardForm(request.POST, instance=credit_card)
         if form.is_valid():
             form.save()
             return redirect("account")
+
 
 def delete_credit_card(request, credit_card_id):
     credit_card = CreditCard.objects.get(credit_card_id=credit_card_id)
@@ -182,6 +187,7 @@ def add_address(request):
     context = {'customer_id': request.user.id, 'form': form}
     return render(request, 'dashboard/add_address.html', context)
 
+
 def edit_address(request, address_id):
     context = {'action': 'update'}
 
@@ -189,9 +195,9 @@ def edit_address(request, address_id):
         address = Address.objects.get(address_id=address_id)
         form = AddressForm(instance=address)
         context['address'] = address
-        context['form'] =  form
+        context['form'] = form
         return render(request, 'dashboard/add_address.html', context)
-    
+
     elif request.method == 'POST':
         address = Address.objects.get(address_id=address_id)
         form = AddressForm(request.POST, instance=address)
@@ -249,6 +255,7 @@ def add_review(request):
                                                language_dependency_rating)
         return redirect("store-home")
 
+
 def edit_review(request, review_id):
     context = {'action': 'update'}
 
@@ -256,9 +263,9 @@ def edit_review(request, review_id):
         review = Review.objects.get(review_id=review_id)
         form = ReviewForm(instance=review)
         context['review'] = review
-        context['form'] =  form
+        context['form'] = form
         return render(request, 'dashboard/add_review.html', context)
-    
+
     elif request.method == 'POST':
         review = Review.objects.get(review_id=review_id)
         print(review)
@@ -267,10 +274,12 @@ def edit_review(request, review_id):
             form.save()
             return redirect("account")
 
+
 def delete_review(request, review_id):
     review = Review.objects.get(review_id=review_id)
     review.delete()
     return redirect("account")
+
 
 def game_detail(request, game_id):
     game = GameItem.objects.get(game_id=game_id)
@@ -319,9 +328,34 @@ def revenue_summary(request):
 @login_required
 @manager_required
 def leader_board(request):
-    context = {}
-    return render(request, 'dashboard/manager_leaderboard.html', context)
+    top_publisher = Publisher.objects.annotate(game_count=Count('gameitem')).order_by('-game_count').first()
+    top_designer = Designer.objects.annotate(game_count=Count('gameitem')).order_by('-game_count').first()
+    top_gametype = GameType.objects.annotate(game_count=Count('gameitem')).order_by('-game_count').first()
+    top_gamemechanic = GameMechanic.objects.annotate(game_count=Count('gameitem')).order_by('-game_count').first()
+    grossing_publisher = get_most_grossing_publisher();
+    grossing_designer = get_most_grossing_designer();
+    grossing_gametype = get_most_grossing_game_type();
+    grossing_gamemechanic = get_most_grossing_game_mechanic();
 
+    context = {
+        'publisher_with_most_games': top_publisher.publisher_name,
+        'publisher_game_count': top_publisher.game_count,
+        'designer_with_most_games': top_designer.designer_name,
+        'designer_game_count': top_designer.game_count,
+        'gametype_with_most_games': top_gametype.type_name,
+        'gametype_game_count': top_gametype.game_count,
+        'gamemechanic_with_most_games': top_gamemechanic.mechanic_name,
+        'gamemechanic_game_count': top_gamemechanic.game_count,
+        'most_grossing_publisher': grossing_publisher[0][0],
+        'most_grossing_publisher_revenue': grossing_publisher[0][1],
+        'most_grossing_designer': grossing_designer[0][0],
+        'most_grossing_designer_revenue': grossing_designer[0][1],
+        'most_grossing_gametype': grossing_gametype[0][0],
+        'most_grossing_gametype_revenue': grossing_gametype[0][1],
+        'most_grossing_gamemechanic': grossing_gamemechanic[0][0],
+        'most_grossing_gamemechanic_revenue': grossing_gamemechanic[0][1],
+    }
+    return render(request, 'dashboard/manager_leaderboard.html', context)
 
 
 def call_stored_procedure(proc_name):
@@ -337,3 +371,28 @@ def get_total_revenue():
         total_revenue = cursor.fetchone()[0]
     return total_revenue
 
+
+def get_most_grossing_publisher():
+    with connection.cursor() as cursor:
+        cursor.callproc('get_most_grossing_producer')
+        results = cursor.fetchall()
+    return results
+
+
+def get_most_grossing_designer():
+    with connection.cursor() as cursor:
+        cursor.callproc('get_most_grossing_designer')
+        results = cursor.fetchall()
+    return results
+
+def get_most_grossing_game_type():
+    with connection.cursor() as cursor:
+        cursor.callproc('get_most_grossing_game_type')
+        results = cursor.fetchall()
+    return results
+
+def get_most_grossing_game_mechanic():
+    with connection.cursor() as cursor:
+        cursor.callproc('get_most_grossing_game_mechanic')
+        results = cursor.fetchall()
+    return results

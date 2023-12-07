@@ -2,17 +2,12 @@
 {% load static %}
 {% block content %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        #total-revenue {
-            background-color: #3498db;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/main.css' %}">
 
     <br>
     <div class="row">
         <div class="col-md-6">
-            <div class="card text-center text-white mb-3" id="total-revenue">
+            <div class="card text-center text-white mb-3" id="leaderboard_card">
                 <div class="card-header">
                     <h5 class="card-title">Total Revenue</h5>
                 </div>

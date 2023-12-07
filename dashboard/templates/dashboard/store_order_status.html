@@ -1,34 +1,7 @@
 <!-- Include Chart.js library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-    #total-orders {
-        background-color: #3498db;
-    }
-
-    #orders-fulfilled {
-        background-color: #2ecc71;
-    }
-
-    #orders-in-cart {
-        background-color: #f39c12;
-    }
-
-    /* Add a class for the chart container */
-    .chart-container {
-        position: relative;
-        height: 300px;
-        width: 300px;
-        margin: auto;
-    }
-
-    /* Add a class to align the chart to the right */
-    .align-right {
-        float: right;
-        margin-right: 20px;
-    }
-</style>
-
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'dashboard/main.css' %}">
 <br>
 
 <div class="row">

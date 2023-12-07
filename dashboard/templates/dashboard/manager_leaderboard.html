@@ -2,52 +2,100 @@
 {% load static %}
 {% block content %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/main.css' %}">
 
-    <style>
-        #total-revenue {
-            background-color: #3498db;
-        }
-    </style>
+    <br>
 
+    <!-- Fields for most grossing leaders -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="leaderboard_grossing_card">
+                <div class="card-header">
+                    <h5 class="card-title">Most grossing Publisher</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ most_grossing_publisher }}</h3>
+                    <h4 class="card-text">${{ most_grossing_publisher_revenue }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="leaderboard_grossing_card">
+                <div class="card-header">
+                    <h5 class="card-title">Most grossing Designer</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ most_grossing_designer }}</h3>
+                    <h4 class="card-text">${{ most_grossing_designer_revenue }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="leaderboard_grossing_card">
+                <div class="card-header">
+                    <h5 class="card-title">Most grossing Game Type</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ most_grossing_gametype }}</h3>
+                    <h4 class="card-text">${{ most_grossing_gametype_revenue }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-white mb-3" id="leaderboard_grossing_card">
+                <div class="card-header">
+                    <h5 class="card-title">Most grossing Game Mechanic</h5>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ most_grossing_gamemechanic }}</h3>
+                    <h4 class="card-text">${{ most_grossing_gamemechanic_revenue }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
     <br>
     <div class="row">
         <div class="col-md-6">
-            <div class="card text-center text-white mb-3" id="publisher_game_count">
+            <div class="card text-center text-white mb-3" id="leaderboard_card">
                 <div class="card-header">
                     <h5 class="card-title">Publisher with most games</h5>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">${{ publisher_name }}</h3>
+                    <h3 class="card-title">{{ publisher_with_most_games }}</h3>
+                    <h4 class="card-text">{{ publisher_game_count }}</h4>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card text-center text-white mb-3" id="total-revenue">
+            <div class="card text-center text-white mb-3" id="leaderboard_card">
                 <div class="card-header">
-                    <h5 class="card-title">Total Revenue</h5>
+                    <h5 class="card-title">Designer with most games</h5>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">${{ total_revenue }}</h3>
+                    <h3 class="card-title">{{ designer_with_most_games }}</h3>
+                    <h4 class="card-text">{{ designer_game_count }}</h4>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card text-center text-white mb-3" id="total-revenue">
+            <div class="card text-center text-white mb-3" id="leaderboard_card">
                 <div class="card-header">
-                    <h5 class="card-title">Total Revenue</h5>
+                    <h5 class="card-title">Game Types with most games</h5>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">${{ total_revenue }}</h3>
+                    <h3 class="card-title">{{ gametype_with_most_games }}</h3>
+                    <h4 class="card-text">{{ gametype_game_count }}</h4>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card text-center text-white mb-3" id="total-revenue">
+            <div class="card text-center text-white mb-3" id="leaderboard_card">
                 <div class="card-header">
-                    <h5 class="card-title">Total Revenue</h5>
+                    <h5 class="card-title">Game Mechanic with most games</h5>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title">${{ total_revenue }}</h3>
+                    <h3 class="card-title">{{ gamemechanic_with_most_games }}</h3>
+                    <h4 class="card-text">{{ gamemechanic_game_count }}</h4>
                 </div>
             </div>
         </div>

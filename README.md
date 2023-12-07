@@ -1,38 +1,76 @@
-# Django Game Store Project
+# Project Setup Guide
 
-Welcome to the Django Game Store Project!
+## Prerequisite Software
 
-## Project Setup
+Before you proceed with the installation, make sure you have the following software installed on your system:
 
-Follow these steps to set up and run the project:
+- **Python:** Check if Python is installed by running the command `python --version` in the command prompt (Windows) or terminal (mac/Linux).
+- **Pip:** Verify the presence of Pip by running the command `pip --version` in the command prompt or terminal. (You can visit https://pip.pypa.io/en/stable/installation/ for detailed steps on installation)
+- **MySqL**
 
-### 1. Install Requirements
+## Installation Steps
 
-Run the following command to install the project requirements:
+1. **Database Setup:**
+   - Import the provided dump into your MySQL database. This action will create the database 'game_store_db_ver3' along with all necessary tables, procedures, functions, triggers, and data.
 
-```bash
-python setup.py
-```
+2. **Configure Database Connection:**
+   - Navigate to the 'gameStore' folder and open the 'settings.py' file using any text editor.
+     - Locate the 'DATABASES' variable and update the following values:
+       - `USER`: < Root Username for MySQL Workbench (usually 'root') >
+       - `PASSWORD`: < Password for the root user of MySQL >
+       - `PORT`: < Port where MySQL starts, typically 3306 >
 
-### 2. Set MySQL Credentials
+3. **Navigate to Project Directory:**
+   - Return to the project directory (the folder containing this readme file).
 
-The setup script will guide you through setting up MySQL credentials. Make sure to provide the necessary information.
+4. **Install Project Requirements:**
+   - Open the command prompt (Windows) or terminal (mac/Linux) and run the following command to install all project requirements:
+     ```
+     pip install -r requirements.txt
+     ```
 
-### 3. Additional Configuration
+5. **Run Django Project:**
+   - Execute the following command in the command prompt or terminal:
+     ```
+     python manage.py runserver
+     ```
 
-If there are additional configuration steps, the setup script will prompt you accordingly.
+6. **Access Project Dashboard:**
+   - Visit the following link in your web browser:
+     - [http://127.0.0.1:8000/](http://127.0.0.1:8000/) or [http://localhost:8000/](http://localhost:8000/)
 
-### 4. Start the Django Development Server
+## Technical Specifications
 
-After completing the setup, run the following command to start the Django development server:
+Below, we've outlined the key technical details to help you understand how everything works.
 
-```bash
-python manage.py runserver
-```
+### Framework and Database
 
-Visit [http://localhost:8000/](http://localhost:8000/) in your web browser to access the Django project.
+Our project is built on Django 4.2.7, a powerful Python web framework. It seamlessly connects with MySQL databases, providing a robust foundation for your application. You can run the project on any operating system, as most libraries are either native to Python or fetched via CDN (like Bootstrap) upon opening.
 
-## Additional Information
+### Dependencies
 
-- If you encounter any issues or have questions, feel free to reach out.
+To ensure smooth operation, we've included various dependencies in the requirements.txt and the same should be installed at Step 4. Here's a breakdown of each, along with its specific purpose:
 
+- **asgiref==3.7.2:** Essential for internal Django functionality.
+- **cffi==1.16.0:** Another internal requirement for Django.
+- **crispy-bootstrap4==2023.1:** Enhances form rendering in Django using Bootstrap 4.
+- **cryptography==41.0.7:** Handles the secure storage and retrieval of user passwords.
+- **distlib==0.3.7:** Internal Django requirement.
+- **Django==4.2.7:** The core Django framework.
+- **django-crispy-forms==2.1:** Simplifies form creation in Django.
+- **django-filter==23.4:** Internal Django requirement for advanced filtering.
+- **filelock==3.12.4:** Internal Django requirement for file locking.
+- **mysql-connector-python==8.2.0:** Connector for MySQL databases.
+- **Pillow==10.1.0:** Facilitates fetching and uploading of images in Django applications.
+- **platformdirs==3.10.0:** Internal Django requirement for platform-specific directories.
+- **protobuf==4.21.12:** Internal Django requirement.
+- **pycparser==2.21:** Internal Django requirement.
+- **PyMySQL==1.1.0:** Connector for MySQL databases.
+- **sqlparse==0.4.4:** Internal Django requirement for SQL parsing.
+- **tzdata==2023.3:** Internal Django requirement for time zone data.
+- **virtualenv==20.24.5:** Sets up a virtual environment, especially useful for PyCharm users.
+
+## Exploring the project
+
+We have built a complete end to end game-store using Django and MySql.
+To navigate to the 

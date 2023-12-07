@@ -54,7 +54,7 @@ class GameItemForm(forms.ModelForm):
 class PublisherForm(forms.ModelForm):
     class Meta:
         model = Publisher
-        exclude = ['publisher_id', 'num_published']
+        exclude = ['publisher_id']
 
     def __init__(self, *args, **kwargs):
         action = kwargs.pop('action', False)
@@ -69,7 +69,6 @@ class PublisherForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super(PublisherForm, self).save(commit=False)
-        instance.num_published = 0 # TODO Check with Trang
 
         if commit:
             instance.save()

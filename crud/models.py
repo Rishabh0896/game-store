@@ -41,7 +41,6 @@ class GameType(models.Model):
 class Publisher(models.Model):
     publisher_id = models.AutoField(primary_key=True)
     publisher_name = models.CharField(unique=True, max_length=255)
-    num_published = models.IntegerField()
 
     class Meta:
         managed = False

@@ -35,7 +35,7 @@ def add_game(request):
             if not hasattr(form.instance, 'game_id') or form.instance.game_id is None:
                 form.save()
             messages.success(request, f'Game Item has been created')
-            return redirect('manage_game')
+            return redirect('staff-dashboard')
     else:
         form = GameItemForm(request.POST)
         context['form'] = form
@@ -69,7 +69,7 @@ def update_game(request, game_id):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Item has been updated')
-            return redirect('manage_game')
+            return redirect('staff-dashboard')
     else:
         form = GameItemForm(instance=game, initial={
             'game_mechanic_options': game.mechanic,
@@ -102,7 +102,7 @@ def add_publisher(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Publisher has been created')
-        return redirect('manage_publisher')
+        return redirect('staff-dashboard')
     else:
         form = PublisherForm()
         context['form'] = form
@@ -144,7 +144,7 @@ def update_publisher(request, publisher_id):
         if form.is_valid():
             form.save()
             messages.success(request, f'Publisher has been updated')
-            return redirect('manage_publisher')
+            return redirect('staff-dashboard')
     else:
         form = PublisherForm(instance=publisher)
         context['form'] = form
@@ -171,7 +171,7 @@ def add_designer(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Designer has been created')
-        return redirect('manage_designer')
+        return redirect('staff-dashboard')
     else:
         form = DesignerForm()
         context['form'] = form
@@ -213,7 +213,7 @@ def update_designer(request, designer_id):
         if form.is_valid():
             form.save()
             messages.success(request, f'designer has been updated')
-            return redirect('manage_designer')
+            return redirect('staff-dashboard')
     else:
         form = DesignerForm(instance=designer)
         context['form'] = form
@@ -240,7 +240,7 @@ def add_gametype(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Type has been created')
-        return redirect('manage_gametype')
+        return redirect('staff-dashboard')
     else:
         form = GameTypeForm()
         context['form'] = form
@@ -282,7 +282,7 @@ def update_gametype(request, type_id):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Type has been updated')
-            return redirect('manage_gametype')
+            return redirect('staff-dashboard')
     else:
         form = GameTypeForm(instance=gametype)
         context['form'] = form
@@ -309,7 +309,7 @@ def add_gamemechanic(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Mechanic has been created')
-        return redirect('manage_gamemechanic')
+        return redirect('staff-dashboard')
     else:
         form = GameMechanicForm()
         context['form'] = form
@@ -351,7 +351,7 @@ def update_gamemechanic(request, mechanic_id):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Mechanic has been updated')
-            return redirect('manage_gamemechanic')
+            return redirect('staff-dashboard')
     else:
         form = GameMechanicForm(instance=gamemechanic)
         context['form'] = form

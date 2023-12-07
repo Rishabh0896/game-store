@@ -43,21 +43,67 @@
     <div class="col-md-6 mt-3">
         <h2>Reviews</h2>
         <ul class="list-group">
-            {% if reviews is None %}
-                <li class="list-group-item">No reviews</li>
+            {% if reviews %}
+                {% for review in reviews %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a style="text-decoration: none; color: black;" href="{% url 'game_detail'  game_id=review.game.game_id %}">
+                            <span>{{ review.game.game_name }}</span>
+                        </a>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'edit_review' review_id=review.review_id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_review' review_id=review.review_id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">No reviews. </li>    
             {% endif %}
-            {% for review in reviews %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a style="text-decoration: none; color: black;" href="{% url 'game_detail'  game_id=review.game.game_id %}">
-                        <span>{{ review.game.game_name }}</span>
-                    </a>
-                    <div class="btn-group" role="group">
-                        <a href="{% url 'edit_review' review_id=review.review_id %}" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="{% url 'delete_review' review_id=review.review_id %}" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                </li>
-            {% endfor %}
         </ul>
     </div>
+</div>
+
+<div class="row mt-3">
+    <h2>Orders</h2>
+    <div class="col-md-6 mt-3">
+        <h4>Pending Order</h4>
+        <ul class="list-group">
+            {% if placed_orders %}
+                {% for order in placed_orders %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a style="text-decoration: none; color: black;">
+                            <h5>Order {{ order.order_id }}</h5>
+                            <div>Total: ${{ order.get_cart_total }}</div>
+                            <div>Date Placed: {{ order.date_ordered }}</div>
+                        </a>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'cancel_order' order_id=order.order_id %}" class="btn btn-danger btn-sm">Cancel</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">No pending orders. </li>    
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="col-md-6 mt-3">
+        <h4>Fulfilled Order</h4>
+        <ul class="list-group">
+            {% if fulfilled_orders %}
+                {% for order in fulfilled_orders %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a style="text-decoration: none; color: black;">
+                            <h5>Order {{ order.order_id }}</h5>
+                            <div>Total: ${{ order.get_cart_total }}</div>
+                            <div>Date Placed: {{ order.date_ordered }}</div>
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">No fulfilled orders. </li>    
+            {% endif %}
+        </ul>
+    </div>
+
 </div>
 {% endblock content %}

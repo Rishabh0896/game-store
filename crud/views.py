@@ -35,7 +35,7 @@ def add_game(request):
             if not hasattr(form.instance, 'game_id') or form.instance.game_id is None:
                 form.save()
             messages.success(request, f'Game Item has been created')
-            return redirect('store-home')
+            return redirect('manage_game')
     else:
         form = GameItemForm(request.POST)
         context['form'] = form
@@ -102,7 +102,7 @@ def add_publisher(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Publisher has been created')
-        return redirect('store-home')
+        return redirect('manage_publisher')
     else:
         form = PublisherForm()
         context['form'] = form
@@ -171,7 +171,7 @@ def add_designer(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Designer has been created')
-        return redirect('store-home')
+        return redirect('manage_designer')
     else:
         form = DesignerForm()
         context['form'] = form
@@ -240,7 +240,7 @@ def add_gametype(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Type has been created')
-        return redirect('store-home')
+        return redirect('manage_gametype')
     else:
         form = GameTypeForm()
         context['form'] = form
@@ -309,7 +309,7 @@ def add_gamemechanic(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Game Mechanic has been created')
-        return redirect('store-home')
+        return redirect('manage_gamemechanic')
     else:
         form = GameMechanicForm()
         context['form'] = form

@@ -1,4 +1,4 @@
-# Project Setup Guide
+# Setup Guide
 
 ## Prerequisite Software
 
@@ -39,6 +39,158 @@ Before you proceed with the installation, make sure you have the following softw
    - Visit the following link in your web browser:
      - [http://127.0.0.1:8000/](http://127.0.0.1:8000/) or [http://localhost:8000/](http://localhost:8000/)
 
+
+## Exploring the Project
+
+We've made it easy for you to navigate and enjoy the shopping experience. Here's a guide to get you started:
+
+### Project Dashboard
+
+Visit [http://127.0.0.1:8000/](http://127.0.0.1:8000/) or [http://localhost:8000/](http://localhost:8000/) to access the project dashboard. This is where you can explore the games available in the store.
+
+### User Groups and Demo Accounts
+
+We've set up demo accounts for each user group to help you test different functionalities:
+
+1. **Customer:**
+   - ID: testCustomer
+   - Password: testPassword
+
+2. **Staff:**
+   - ID: testStaff
+   - Password: testPassword
+
+3. **Manager:**
+   - ID: testManager
+   - Password: testPassword
+
+### User Login
+
+Visit [Login](http://localhost:8000/login) to log in with any of the demo accounts mentioned above. Alternatively, you can create your own user (with the user group 'Customer') by clicking on [Register](http://localhost:8000/register/).
+
+### User Roles and Actions
+
+#### Customer:
+- Explore the dashboard and purchase games.
+- Add games to your cart, proceed to checkout, and manage your transaction details, including credit card and address information.
+- Review games and provide ratings.
+- Navigate to your profile to manage your username, profile image, and more.
+
+#### Staff:
+- Perform CRUD operations on game items displayed to users. You have access to CRUD the following entities:
+  - GameItem (Table: gameitem)
+  - Publisher (Table: publisher)
+  - Designer (Table: designer)
+  - GameType (Table: game_type)
+  - GameMechanic (Table: game_mechanic)
+
+#### Manager:
+- Fulfill pending orders.
+- View the overall performance of the store through visualizations.
+
+Please refer to the FinalReport.pdf for detaile activity diagrams!
+
+### Visualizations
+
+You'll find that the manager role comes with a set of insightful visualizations to provide key business insights. Here's a brief overview:
+
+#### Popular and Grossing Games
+
+- 🔒 **Access:** Manager Login Required
+- **Visualization:** Discover the most popular and top-grossing games.
+- **Location:** [Performance](http://127.0.0.1:8000/game_leaderboard/)
+
+#### Total Orders Overview (Pie Chart)
+
+- 🔒 **Access:** Manager Login Required
+- **Visualization:** Explore a pie chart overview of total orders.
+- **Location:** [Manager Dashboard](http://127.0.0.1:8000/manager_dashboard/)
+
+
+### Supported CRUD Operations Overview
+
+
+We've designed the project to seamlessly support various CRUD (Create, Read, Update, Delete) operations across multiple entities. 
+
+| Entity                      | Table                | Create | Read | Update | Delete |
+|-----------------------------|----------------------|--------|------|--------|--------|
+| Users and Profile           | auth_user, users_profile | ✔ | ✔ | ✔ |  |
+| GameItem                    | gameitem             | ✔ | ✔ | ✔ | ✔ |
+| Publisher                   | publisher            | ✔ | ✔ | ✔ | ✔ |
+| Designer                    | designer             | ✔ | ✔ | ✔ | ✔ |
+| GameType                    | game_type            | ✔ | ✔ | ✔ | ✔ |
+| GameMechanic                | game_mechanic        | ✔ | ✔ | ✔ | ✔ |
+| Order                       | order_item           | ✔ | ✔ |   | ✔ |
+| Review                      | review               | ✔ | ✔ | ✔ | ✔ |
+| Address                     | address              | ✔ | ✔ | ✔ | ✔ |
+| Credit Card                 | credit_card          | ✔ | ✔ | ✔ | ✔ |
+
+
+Here's a more descrptive view of each of the above CRUD operations available:
+We've designed our project to seamlessly support CRUD (Create, Read, Update, Delete) operations across various entities. Below is a detailed summary:
+
+#### Users and Profile (Tables: auth_user, users_profile):
+🔒 **Access:** Customer Login Required
+
+- **Create:** Add new users to the system by [registering here](http://localhost:8000/register/).
+- **Read and Update:** Retrieve and modify user [profile information](http://127.0.0.1:8000/profile/).
+
+#### GameItem (Table: gameitem):
+🔒 **Access:** Staff Login Required
+
+- **Create, Read, Update, Delete:** Manage game items through the [Staff Dashboard](http://127.0.0.1:8000/staff-dashboard/).
+
+#### Publisher (Table: publisher):
+🔒 **Access:** Staff Login Required
+
+- **Create, Read, Update, Delete:** Handle publishers in the [Staff Dashboard](http://127.0.0.1:8000/staff-dashboard/).
+
+#### Designer (Table: designer):
+🔒 **Access:** Staff Login Required
+
+- **Create, Read, Update, Delete:** Control designers via the [Staff Dashboard](http://127.0.0.1:8000/staff-dashboard/).
+
+#### GameType (Table: game_type):
+🔒 **Access:** Staff Login Required
+
+- **Create, Read, Update, Delete:** Manage game types in the [Staff Dashboard](http://127.0.0.1:8000/staff-dashboard/).
+
+#### GameMechanic (Table: game_mechanic):
+🔒 **Access:** Staff Login Required
+
+- **Create, Read, Update, Delete:** Oversee game mechanics through the [Staff Dashboard](http://127.0.0.1:8000/staff-dashboard/).
+
+#### Order (Table: order_item):
+🔒 **Access:** Customer Login Required
+
+- **Create, Read, Update, Delete:** Handle orders via the [Staff Dashboard](http://127.0.0.1:8000/staff-dashboard/).
+
+#### Review (Table: review):
+🔒 **Access:** Customer Login Required
+
+- **Create:** Submit new game reviews through the dashboard.
+- **Read, Update, Delete:** Manage reviews in the [Account section](http://127.0.0.1:8000/account/).
+
+#### Address (Table: address):
+🔒 **Access:** Customer Login Required
+
+- **Create, Read, Update, Delete:** Control addresses through the [Account section](http://127.0.0.1:8000/account/).
+
+#### Credit Card (Table: credit_card):
+🔒 **Access:** Customer Login Required
+
+- **Create, Read, Update, Delete:** Manage credit cards in the [Account section](http://127.0.0.1:8000/account/).
+
+This overview provides a comprehensive understanding of the CRUD operations available for different entities in our project. If you have any questions or need further clarification, please refer to the documentation or reach out for assistance.
+
+
+
+
+
+
+
+
+
 ## Technical Specifications
 
 Below, we've outlined the key technical details to help you understand how everything works.
@@ -70,7 +222,4 @@ To ensure smooth operation, we've included various dependencies in the requireme
 - **tzdata==2023.3:** Internal Django requirement for time zone data.
 - **virtualenv==20.24.5:** Sets up a virtual environment, especially useful for PyCharm users.
 
-## Exploring the project
 
-We have built a complete end to end game-store using Django and MySql.
-To navigate to the 

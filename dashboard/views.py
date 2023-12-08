@@ -400,7 +400,7 @@ def get_total_revenue():
 def get_most_grossing_publisher():
     try:
         with connection.cursor() as cursor:
-            cursor.callproc('get_most_grossing_producer')
+            cursor.callproc('get_most_grossing_publisher')
             results = cursor.fetchall()
         return results
     except Exception as e:

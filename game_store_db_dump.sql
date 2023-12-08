@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `game_store_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `game_store_db`;
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: game_store_db
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -159,7 +159,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$600000$AdgjEL68ZHDA12IlXpv1xR$PiNQHxwn/25fNc3QqncAnWS3Sbye8sGT9/ouhzqFqKk=','2023-12-06 20:20:22.000000',1,'admin','','','admin@admin.com',1,1,'2023-11-19 15:33:16.000000'),(3,'pbkdf2_sha256$600000$ZTld5skHgRjNITq97JX8GW$dAV3UUml084GyRG4yiacNTdbBxg0wqN6g0CtYFwfq5k=','2023-12-07 21:43:15.223694',0,'testStaff','','','testStaff@gmail.com',0,1,'2023-11-27 02:13:36.000000'),(5,'pbkdf2_sha256$600000$HkTsrr9ewl7X43qY5ekhQ$OCtX7kIQBLJdnq4VQTnScslfygq7+8V4BSQP7U4D89c=','2023-12-07 01:51:40.736099',0,'testCustomer','','','customer@gmail.com',0,1,'2023-12-06 16:17:20.000000'),(6,'pbkdf2_sha256$600000$yF0C4ZT6QH4ici7l9LMjfH$P/TTPG5QA36iLsPmWI9pTJ+j7ADiojTDg2BUGEmNEGU=','2023-12-07 21:41:04.243943',0,'testManager','','','manager@gmail.com',0,1,'2023-12-06 20:17:53.000000');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$600000$AdgjEL68ZHDA12IlXpv1xR$PiNQHxwn/25fNc3QqncAnWS3Sbye8sGT9/ouhzqFqKk=','2023-12-08 01:05:07.077659',1,'admin','','','admin@admin.com',1,1,'2023-11-19 15:33:16.000000'),(3,'pbkdf2_sha256$600000$ZTld5skHgRjNITq97JX8GW$dAV3UUml084GyRG4yiacNTdbBxg0wqN6g0CtYFwfq5k=','2023-12-07 21:43:15.223694',0,'testStaff','','','testStaff@gmail.com',0,1,'2023-11-27 02:13:36.000000'),(5,'pbkdf2_sha256$600000$iJpX40MPKJtHI8qMr0fZ1h$Lse2gI4lNaZORvOYiBzlJe7PllJdfpD8qGz9hE0wsOo=','2023-12-07 01:51:40.736099',0,'testCustomer','','','customer@gmail.com',0,1,'2023-12-06 16:17:20.000000'),(6,'pbkdf2_sha256$600000$yF0C4ZT6QH4ici7l9LMjfH$P/TTPG5QA36iLsPmWI9pTJ+j7ADiojTDg2BUGEmNEGU=','2023-12-07 21:41:04.243943',0,'testManager','','','manager@gmail.com',0,1,'2023-12-06 20:17:53.000000');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,7 +297,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `fk_content_type_id_django_content_type_2` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `fk_user_id_auth_user_4` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `django_admin_log_check_action_flag` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -306,7 +306,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2023-11-27 06:20:30.246706','1','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(2,'2023-11-27 06:20:53.217300','2','testStaff Profile',1,'[{\"added\": {}}]',16,1),(3,'2023-11-27 06:30:08.666549','2','testStaff Profile',3,'',16,1),(4,'2023-11-27 06:30:08.668543','1','testRishabh Profile',3,'',16,1),(5,'2023-11-27 06:30:16.181076','3','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(6,'2023-11-27 06:30:25.242568','4','testStaff Profile',1,'[{\"added\": {}}]',16,1),(7,'2023-11-27 07:09:54.726649','6','admin Profile',1,'[{\"added\": {}}]',16,1),(8,'2023-12-06 15:42:35.508044','1','customer_group',1,'[{\"added\": {}}]',3,1),(9,'2023-12-06 15:43:02.770693','1','customer_group',2,'[{\"changed\": {\"fields\": [\"Permissions\"]}}]',3,1),(10,'2023-12-06 15:54:58.099568','2','testRishabh',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(11,'2023-12-06 16:10:50.253463','2','staff_group',1,'[{\"added\": {}}]',3,1),(12,'2023-12-06 16:10:58.468512','3','manager_group',1,'[{\"added\": {}}]',3,1),(13,'2023-12-06 16:15:38.391727','4','newUser4',3,'',4,1),(14,'2023-12-06 16:15:38.409506','2','testRishabh',3,'',4,1),(15,'2023-12-06 18:04:37.047526','3','testStaff',2,'[{\"changed\": {\"fields\": [\"password\"]}}]',4,1),(16,'2023-12-06 18:05:27.360383','3','testStaff',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(17,'2023-12-06 18:05:32.394980','5','testCustomer',2,'[]',4,1),(18,'2023-12-06 20:20:39.444130','6','testManager',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(19,'2023-12-06 20:20:47.558960','1','admin',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1);
+INSERT INTO `django_admin_log` VALUES (1,'2023-11-27 06:20:30.246706','1','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(2,'2023-11-27 06:20:53.217300','2','testStaff Profile',1,'[{\"added\": {}}]',16,1),(3,'2023-11-27 06:30:08.666549','2','testStaff Profile',3,'',16,1),(4,'2023-11-27 06:30:08.668543','1','testRishabh Profile',3,'',16,1),(5,'2023-11-27 06:30:16.181076','3','testRishabh Profile',1,'[{\"added\": {}}]',16,1),(6,'2023-11-27 06:30:25.242568','4','testStaff Profile',1,'[{\"added\": {}}]',16,1),(7,'2023-11-27 07:09:54.726649','6','admin Profile',1,'[{\"added\": {}}]',16,1),(8,'2023-12-06 15:42:35.508044','1','customer_group',1,'[{\"added\": {}}]',3,1),(9,'2023-12-06 15:43:02.770693','1','customer_group',2,'[{\"changed\": {\"fields\": [\"Permissions\"]}}]',3,1),(10,'2023-12-06 15:54:58.099568','2','testRishabh',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(11,'2023-12-06 16:10:50.253463','2','staff_group',1,'[{\"added\": {}}]',3,1),(12,'2023-12-06 16:10:58.468512','3','manager_group',1,'[{\"added\": {}}]',3,1),(13,'2023-12-06 16:15:38.391727','4','newUser4',3,'',4,1),(14,'2023-12-06 16:15:38.409506','2','testRishabh',3,'',4,1),(15,'2023-12-06 18:04:37.047526','3','testStaff',2,'[{\"changed\": {\"fields\": [\"password\"]}}]',4,1),(16,'2023-12-06 18:05:27.360383','3','testStaff',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(17,'2023-12-06 18:05:32.394980','5','testCustomer',2,'[]',4,1),(18,'2023-12-06 20:20:39.444130','6','testManager',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(19,'2023-12-06 20:20:47.558960','1','admin',2,'[{\"changed\": {\"fields\": [\"Groups\"]}}]',4,1),(20,'2023-12-08 01:05:35.322119','5','testCustomer',2,'[{\"changed\": {\"fields\": [\"password\"]}}]',4,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -967,4 +967,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-07 17:56:28
+-- Dump completed on 2023-12-07 20:06:39

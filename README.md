@@ -11,7 +11,7 @@ Before you proceed with the installation, make sure you have the following softw
 ## Installation Steps
 
 1. **Database Setup:**
-   - Import the provided dump into your MySQL database. This action will create the database 'game_store_db_ver3' along with all necessary tables, procedures, functions, triggers, and data.
+   - Import the provided dump into your MySQL database. This action will create the database 'game_store_db' along with all necessary tables, procedures, functions, triggers, and data.
 
 2. **Configure Database Connection:**
    - Navigate to the 'gameStore' folder and open the 'settings.py' file using any text editor.

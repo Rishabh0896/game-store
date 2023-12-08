@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'gameStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'game_store_db_ver3',
-        'USER': 'root',
-        'PASSWORD': '08RISHABH@mysql',
+        'NAME': 'game_store_db',
+        'USER': 'root',  # 'root',
+        'PASSWORD': '08RISHABH@mysql',  # '08RISHABH@mysql',
         'HOST': 'localhost',
         'PORT': '3306',
     }

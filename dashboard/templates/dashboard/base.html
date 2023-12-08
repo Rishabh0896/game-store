@@ -34,13 +34,14 @@
                         <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                         <a class="nav-item nav-link" href="{% url 'account' %}">Account</a>
                         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a href="{% url 'cart' %}">
+	    		            <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+	    	            </a>
                     {% else %}
                         <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                         <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
                     {% endif %}
-                    <a href="{% url 'cart' %}">
-	    		        <img  id="cart-icon" src="{% static 'images/cart.png' %}">
-	    	        </a>
+   
                 </div>
             </div>
         </div>
